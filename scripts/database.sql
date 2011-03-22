@@ -25,7 +25,7 @@
 
 CREATE DATABASE nadproject;
 CREATE USER 'nad_admin'@'localhost' IDENTIFIED BY 'admin';
-GRANT ALL ON nad_project.* TO 'nad_admin'@'localhost';
+GRANT ALL ON nadproject.* TO 'nad_admin'@'localhost';
 USE 'nadproject';
 --
 -- Temporary table structure for view `adminview`
