@@ -6,7 +6,11 @@ $error = "";
 if( isset($_POST['email']) && isset($_POST['password']))
 {
     //attempt login
-
+	$conn = mysql_connect($db_host, $db_user, $db_password);
+	if( !$conn )
+	{
+		die( "Database error: " . mysql_error());
+	}
 }
 ?>
 
