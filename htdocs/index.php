@@ -24,7 +24,8 @@ if( isset($_POST['email']) && isset($_POST['password']))
     $query = "SELECT id FROM users WHERE email='".mysql_real_escape_string($_POST['email'])."' AND password='".hashPassword($_POST['password'])."' LIMIT 1";
 
     $result = mysql_query($query);
-    if( mysql_num_rows($result)== 0)
+    
+    if( !$result || mysql_num_rows($result)== 0)
     {
         //login failed
         $error = "Invalid email or password.";
@@ -47,7 +48,7 @@ if( isset($_POST['email']) && isset($_POST['password']))
     <body>
 <?php include $_SERVER['DOCUMENT_ROOT'].'/../templates/header.php'; ?>
         <form method="POST" action ="<?=$_SERVER['PHP_SELF']?>">
-            <div id="error"><?php echo $error; ?></div>
+            <div class="error"><?php echo $error; ?></div>
             E-mail:<br />
             <input type="text" name="email" value ="<?php echo $email; ?>" /><br />
             Password:<br />
