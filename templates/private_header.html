@@ -1,6 +1,6 @@
    <div class="header">
         <div class="displayname">
-        <h1 class="title"><span id="displayName"><?php echo $user; ?></span></h1>
+        <h1 class="title"><span id="displayName"><?php echo $_SESSION['user_name'] ?></span></h1>
         </div>
     </div>
 
@@ -10,7 +10,7 @@
     <div class="sidebar">
         <br />
         <br />
-        <a href="">Profile&nbsp;Page</a><br />
+        <a href="profile.php">Profile&nbsp;Page</a><br />
         <a href="">Preference</a><br />
         <a href="">Friends</a><br />
         <a href="">Logout</a><br />
