@@ -23,7 +23,6 @@ div.login
 {
     margin-right:10px;
     text-align:right;
-    background-color: fuchsia;
 }
 
 div.displayname
@@ -33,7 +32,7 @@ div.displayname
 
 div.sidebar
 {
-    width: 20%;
+    width: 25%;
 }
 
 div.maincontent

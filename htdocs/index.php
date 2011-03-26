@@ -21,7 +21,7 @@ if( isset($_POST['email']) && isset($_POST['password']))
     mysql_select_db("nadproject")
         or die ("Database not found.");
 
-    $query = "SELECT id,suspended FROM users WHERE email='".mysql_real_escape_string($_POST['email'])."' AND password='".hashPassword($_POST['password'])."' LIMIT 1";
+    $query = "SELECT id,suspended,name FROM users WHERE email='".mysql_real_escape_string($_POST['email'])."' AND password='".hashPassword($_POST['password'])."' LIMIT 1";
 
     $result = mysql_query($query);
     
@@ -40,6 +40,7 @@ if( isset($_POST['email']) && isset($_POST['password']))
         {
             session_start();
             $_SESSION['user_id'] = $row[0];
+            $_SESSION['user_name'] = $row[2];
             header( 'Location: /profile.php');
         }
         else
