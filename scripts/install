@@ -1,0 +1,27 @@
+How to setup and install apache, php, and mysql in Ubuntu 10.10
+
+Run these command following any onscreen instructions:
+
+	sudo apt-get install tasksel
+
+	sudo tasksel install lamp-server
+
+	mysql -u root -p < database.sql //from the scripting directory of this repo
+
+Edit /etc/php5/apache2/php.ini
+	change the line
+	display_errors = Off
+	to
+	display_erros = On
+
+Edit /etc/apache2/sites-available/default
+	change the document root to point to the htdocs of this repo
+	Should look something like this. Note that lack of a / at the end
+	DocumentRoot /var/www/nad_project/htdocs
+
+
+Run
+	sudo /etc/init.d/apache2 restart
+
+Everything should now be happy.
+
