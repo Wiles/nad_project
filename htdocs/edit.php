@@ -1,6 +1,6 @@
 <?php
 require $_SERVER['DOCUMENT_ROOT'].'/../includes/database.php';
-$page_title = "Registration";
+$page_title = "Preferences";
 
 session_start();
 //Check if user is logged in

@@ -44,11 +44,7 @@ div.maincontent
     background-color:white;
     float: left;
     margin-left: 1%;
-}
-
-tr.main
-{
-    vertical-align:top;
+    max-width: 81%;
 }
 
 div.posts
@@ -58,7 +54,12 @@ div.posts
 
 div.comments
 {
-    margin-left: 8%;
+    margin-left: 5%;
+}
+
+.wrap
+{
+    word-wrap: break-word;
 }
 
 p.postdate
