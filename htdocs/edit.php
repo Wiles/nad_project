@@ -23,7 +23,12 @@ $dateError = "";
 
 if( isset($_POST['submitted']))
 {
-    //validate information
+    //connect
+    $conn = mysql_connect($db_host, $db_user, $db_password)
+        or die( "Database error: " . mysql_error());
+    mysql_select_db("nadproject")
+        or die ("Database not found.");
+//validate information
     $valid = true;
     $query = 'UPDATE users SET ';
 
@@ -34,7 +39,7 @@ if( isset($_POST['submitted']))
     {
         $dateOfBirth = $year.'-'.$month.'-'.$day;
 
-        $query += 'dateofbirth="'.$dateOfBirth.'"';
+        $query .= 'dateofbirth="'.mysql_real_escape_string($dateOfBirth).'", ';
     }
     else
     {
@@ -49,10 +54,10 @@ if( isset($_POST['submitted']))
     }
     else
     {
-        $query += 'name="'.$name.'"';
+        $query .= 'name="'.mysql_real_escape_string($name).'", ';
     }
 
-    if( strlen($password) <= 0 )
+    if( strlen($oldPassword) <= 0 )
     {
         if( $passwordValidator != $password)
         {
@@ -61,7 +66,7 @@ if( isset($_POST['submitted']))
         }
         else
         {
-            $query += 'password="'.hashPassword($password).'"';
+            $query .= 'password="'.hashPassword($password).'", ';
         }
     }
 
@@ -71,15 +76,14 @@ if( isset($_POST['submitted']))
         $valid = false;
         $emailError = "Email is invalid.";
     }
+    else
+    {
+        $query .= 'email="'.mysql_real_escape_string($email).'" ';
+    }
 
     if( $valid )
     {
-        $conn = mysql_connect($db_host, $db_user, $db_password)
-            or die( "Database error: " . mysql_error());
-        mysql_select_db("nadproject")
-            or die ("Database not found.");
-
-        $query = "INSERT INTO users (name,email,dateOfBirth,password,lastActive) VALUES ('".mysql_real_escape_string($name)."','".mysql_real_escape_string($email)."','".$dateOfBirth."','".hashPassword($password)."','".date("Y-m-d")."')";
+        $query .= " WHERE id='".$_SESSION['user_id']."' AND password='".hashPassword($password)."';";
         $result = mysql_query($query);
 
         if( !$result )
