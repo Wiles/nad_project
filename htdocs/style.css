@@ -51,12 +51,17 @@ tr.main
     vertical-align:top;
 }
 
-div.post
+div.posts
 {
-    
+    margin-left: 2%;
 }
 
-div.comment
+div.comments
 {
-    
+    margin-left: 8%;
+}
+
+p.postdate
+{
+    font-size: x-small;
 }
