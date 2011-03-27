@@ -14,6 +14,50 @@ else
     //echo "Profile: ".$user;
 }
 
+//Add request
+if( isset($_GET['id']))
+{
+        //connect to server
+    $conn = mysql_connect($db_host, $db_user, $db_password)
+        or die( "Database error: " . mysql_error());
+
+    //select database
+    mysql_select_db("nadproject")
+        or die ("Database not found.");
+
+    $query = "INSERT INTO friends (firstFriend, secondFriend, status) VALUES (".$_SESSION['user_id'].",".$_GET['id'].",'pending');";
+    mysql_query($query);
+    mysql_close();
+}
+
+//Accept require
+if( isset($_POST['accept']) && isset($_POST['action_id']))
+{
+    $conn = mysql_connect($db_host, $db_user, $db_password)
+        or die( "Database error: " . mysql_error());
+
+    //select database
+    mysql_select_db("nadproject")
+        or die ("Database not found.");
+
+    $query = "UPDATE friends SET status='friends' WHERE (firstfriend='".$_POST['action_id']."' AND secondfriend='".$_SESSION['user_id']."' ) OR (secondfriend='".$_POST['action_id']."' AND firstfriend='".$_SESSION['user_id']."')";
+    mysql_query($query);
+    mysql_close();
+}
+else if( isset($_POST['decline']) && isset($_POST['action_id']))
+{
+    $conn = mysql_connect($db_host, $db_user, $db_password)
+        or die( "Database error: " . mysql_error());
+
+    //select database
+    mysql_select_db("nadproject")
+        or die ("Database not found.");
+
+    $query = "DELETE FROM friends WHERE (firstfriend='".$_POST['action_id']."' AND secondfriend='".$_SESSION['user_id']."' ) OR (secondfriend='".$_POST['action_id']."' AND firstfriend='".$_SESSION['user_id']."')";
+    mysql_query($query);
+    mysql_close();
+}
+
 
 //attempt to get the list of friends from the server
 $friends="";
@@ -30,8 +74,7 @@ mysql_select_db("nadproject")
     or die ("Database not found.");
 
 //create database query to get everyone with friends
-$query = "SELECT firstfriend, secondfriend, status FROM friends WHERE status = \"friends\"
-    AND firstfriend='".mysql_real_escape_string($_SESSION['user_id'])."' OR secondfriend='".mysql_real_escape_string($_SESSION['user_id'])."' ";
+$query = "SELECT firstfriend, secondfriend, status FROM friends WHERE (status = 'friends' AND (firstFriend='".mysql_real_escape_string($_SESSION['user_id'])."' OR secondFriend='".mysql_real_escape_string($_SESSION['user_id'])."'))";
 
 //send query
 $result = mysql_query($query);
@@ -41,7 +84,6 @@ $result = mysql_query($query);
 if( !$result || mysql_num_rows($result)== 0)
 {
     $friends = "No confirmed friends<br/>";
-
 }
 
 //has friends
@@ -60,8 +102,6 @@ else
             {
                 //failed to get name
                 $friends = $friends."Failed to get name for user ".$row[1]."<br />";
-
-
             }
             else
             {
@@ -107,8 +147,7 @@ else
 
 //check for invitations
 //create database query to get everyone with friends
-$query = "SELECT firstfriend, secondfriend, status FROM friends WHERE status = \"pending\"
-    AND firstfriend='".mysql_real_escape_string($_SESSION['user_id'])."' OR secondfriend='".mysql_real_escape_string($_SESSION['user_id'])."' ";
+$query = "SELECT firstfriend, secondfriend, status FROM friends WHERE (status = 'pending' AND (firstFriend='".mysql_real_escape_string($_SESSION['user_id'])."' OR secondFriend='".mysql_real_escape_string($_SESSION['user_id'])."'))";
 
 //send query
 $result = mysql_query($query);
@@ -151,7 +190,7 @@ else
         else
         {
             
-            $query2 = "SELECT name, email, dateOfBirth  FROM users WHERE id = '".mysql_real_escape_string($row[0])."' LIMIT 1";
+            $query2 = "SELECT name, email, dateOfBirth FROM users WHERE id = '".mysql_real_escape_string($row[0])."' LIMIT 1";
             $result2 = mysql_query($query2);
             if( !$result2 || mysql_num_rows($result2)== 0)
             {
@@ -164,12 +203,17 @@ else
                 //got name
                 $row2 = mysql_fetch_row($result2);
                 $count++;
-                $invitations =$invitations."<fieldset >
-                                    <legend> <a href = \"profile.php?id=".$row[1]."\" >".$row2[0]."</a></legend>"
-                                    .$row2[1]."<br \>
-                                    Birth date:".$row2[2].
-                           "<br \><input type=\"button\"value=\"Accept Request\"/>
-                               <input type=\"button\" value=\"Decline Request\"/></fieldset> <br \>" ;
+                $invitations .= 
+                    "<form action = '/friends.php' method = 'POST' />".
+                        "<fieldset >".
+                            "<legend> <a href = \"profile.php?id=".$row[0]."\" >".$row2[0]."</a></legend>"
+                            .$row2[1]."<br \>
+                            Birth date:".$row2[2]."<br \>".
+                            "<input type=\"hidden\"value='".$row[0]."' name='action_id'/>".
+                            "<input type=\"submit\"value=\"Accept Request\" name='accept'/>".
+                            "<input type=\"submit\" value=\"Decline Request\"name='decline' />".
+                        "</fieldset> <br \>".
+                    "</form>";
 
                 
 
@@ -180,7 +224,6 @@ else
        
         $row = mysql_fetch_row($result);
     }
-
 }
 
 if($count==0)
@@ -206,7 +249,6 @@ if($count==0)
 	<link rel="stylesheet" type="text/css" href="/style.css" />
     </head>
      <?php include $_SERVER['DOCUMENT_ROOT'].'/../templates/private_header.html'; ?>
-        <form method="POST" action ="<?=$_SERVER['PHP_SELF']?>">
             <input type="hidden" name="profileload" value="0"/>
             <div id="error"><?php echo $error; ?></div>
             Friend Requests:<br />
@@ -215,7 +257,5 @@ if($count==0)
             <?php echo $invitedfriends?><br />
             Friends:<br />
             <?php echo $friends?><br />
-            
-        </form>
     <?php include $_SERVER['DOCUMENT_ROOT'].'/../templates/private_footer.html'; ?>
 </html>
