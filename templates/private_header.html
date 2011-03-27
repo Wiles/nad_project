@@ -1,6 +1,6 @@
    <div class="header">
         <div class="displayname">
-        <h1 class="title"><span id="displayName"><?php echo $_SESSION['user_name'] ?></span></h1>
+        <h1 class="title"><span id="displayName">SetBook</span></h1>
         </div>
     </div>
 
@@ -12,13 +12,15 @@
         <br />
         <a href="profile.php">Profile&nbsp;Page</a><br />
         <a href="">Preference</a><br />
-        <a href="">Friends</a><br />
+        <a href="friends.php">Friends</a><br />
         <a href="">Logout</a><br />
         <br />
         <br />
         <br />
-        <input id="inviteBox" type="text" /><br />
-        <input id="Invite" type="button" value="Invite a Friend!" /><br />
+        <form method="POST" >
+            <input id="inviteBox" type="text" /><br />
+            <input id="Invite" type="button" value="Invite a Friend!" /><br />
+        </form>
     </div>
     </td>
     
