@@ -65,7 +65,7 @@ if( isset($_POST['submitted']))
         $query = "INSERT INTO users (name,email,dateOfBirth,password,lastActive) VALUES ('".mysql_real_escape_string($name)."','".mysql_real_escape_string($email)."','".$dateOfBirth."','".hashPassword($password)."','".date("Y-m-d")."')";
         $result = mysql_query($query);
 
-        if( !$result || mysql_num_rows($result) == 0)
+        if( !$result )
         {
             $error = mysql_error();
         }
