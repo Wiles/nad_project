@@ -49,7 +49,7 @@
     while ($row != NULL)
     {
         $legend = ($row[0] == $row[1])? $profile_name : $row[4];
-        $posts = $posts."<fieldset><legend>".$legend."</legend>".$row[2]."<br /><p class=\"postdate\" >".$row[3]."</p></fieldset><br />";
+        $posts = $posts."<div class=\"wrap\"><a href=\"profile.php?id=".$row[1]."\" >".$legend."</a><br/>".nl2br(htmlspecialchars($row[2]))."<br /><p class=\"postdate\" >".$row[3]."</p></div><hr/>";
 
         $posts = $posts."<div class=\"comments\" >";
 
@@ -59,10 +59,9 @@
         $row2 = mysql_fetch_row($result2);
         while ($row2 != NULL)
         {
-            $posts = $posts."<fieldset><legend>".$row2[4]."</legend>".$row2[2]."<br /><p class=\"postdate\" >".$row2[3]."</p></fieldset><br />";
+            $posts = $posts."<div class=\"wrap\"><a href=\"profile.php?id=".$row2[1]."\" >".$row2[4]."<a></br />".nl2br(htmlspecialchars($row2[2]))."<br /><p class=\"postdate\" >".$row2[3]."</p></div><hr/>";
             $row2 = mysql_fetch_row($result2);
         }
-
 
         $posts = $posts."</div>";
         
@@ -91,7 +90,7 @@
     </head>
     <body>
     <?php include $_SERVER['DOCUMENT_ROOT'].'/../templates/private_header.html'; ?>
-        <h1><?php echo $profile_name ?></h1>
+        <h2><?php echo $profile_name ?></h2>
         
         <form method="POST" action ="<?=$_SERVER['PHP_SELF']?>">
             <textarea id ="message" name="message" onKeyPress="textLimit(this.form.message, 1024)" rows="3" cols="60"></textarea><br />
