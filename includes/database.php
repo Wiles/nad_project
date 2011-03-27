@@ -1,5 +1,6 @@
 <?php
-	$db_host = "localhost";
+	$db_host = "";
+	$dp_port = "3306";
 	$db_user = "nad_admin";
 	$db_password = "admin";
 
