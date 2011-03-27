@@ -26,7 +26,8 @@ if( isset($_GET['id']) && $_GET['id'] != $_SESSION['user_id'])
         or die ("Database not found.");
 
     //Check that friendship does not exist
-    $query = "SELECT count(*) SET status='friends' WHERE (firstfriend='".$_GET['id']."' AND secondfriend='".$_SESSION['user_id']."' ) OR (secondfriend='".$_SESSION['user_id']."' AND firstfriend='".$_GET['id']."')";
+    $query = "SELECT count(*) FROM friends WHERE (firstfriend='".$_GET['id']."' AND secondfriend='".$_SESSION['user_id']."' ) OR (secondfriend='".$_SESSION['user_id']."' AND firstfriend='".$_GET['id']."')";
+    
     $result = mysql_query($query);
     if( $result)
     {
