@@ -40,7 +40,7 @@ $result = mysql_query($query);
 //no results
 if( !$result || mysql_num_rows($result)== 0)
 {
-    $friends = "No confirmed friends";
+    $friends = "No confirmed friends<br/>";
 
 }
 
@@ -68,10 +68,10 @@ else
                 //got name
                 $row2 = mysql_fetch_row($result2);
                 $friends =$friends."<fieldset >
-                                    <legend> <a href = \"profile.php\" onclick = \"load_profile(".$row[1]."\")>".$row2[0]."</a></legend>"
+                                    <legend> <a href = \"profile.php?id=".$row[1]."\" >".$row2[0]."</a></legend>"
                                     .$row2[1]."<br \>
                                     Birth date:".$row2[2].
-                           "</fieldset> <br \>" ;
+                           "</fieldset> <br \>";
             }
         }
 
@@ -91,7 +91,7 @@ else
                 //got name
                 $row2 = mysql_fetch_row($result2);
                 $friends =$friends."<fieldset >
-                                    <legend> <a href = \"profile.php\" onclick = \"load_profile(".$row[1]."\")>".$row2[0]."</a></legend>"
+                                    <legend> <a href = \"profile.php?id=".$row[1]."\" >".$row2[0]."</a></legend>"
                                     .$row2[1]."<br \>
                                     Birth date:".$row2[2].
                            "</fieldset> <br \>" ;
@@ -117,7 +117,7 @@ $result = mysql_query($query);
 //no results
 if( !$result || mysql_num_rows($result)== 0)
 {
-    $invitedfriends = "No open invites for friends friends";
+    $invitedfriends = "No open invites for friends friends<br/>";
 
 }
 
@@ -158,8 +158,6 @@ else
                 //failed to get name
                 $count++;
                 $invitations = $invitations."Failed to get name for user ".$row[1]."<br />";
-
-
             }
             else
             {
@@ -167,7 +165,7 @@ else
                 $row2 = mysql_fetch_row($result2);
                 $count++;
                 $invitations =$invitations."<fieldset >
-                                    <legend> <a href = \"profile.php\" onclick = \"load_profile(".$row[1]."\")>".$row2[0]."</a></legend>"
+                                    <legend> <a href = \"profile.php?id=".$row[1]."\" >".$row2[0]."</a></legend>"
                                     .$row2[1]."<br \>
                                     Birth date:".$row2[2].
                            "<br \><input type=\"button\"value=\"Accept Request\"/>
@@ -187,7 +185,7 @@ else
 
 if($count==0)
 {
-    $invitations="No new friend requests";
+    $invitations="No new friend requests<br/>";
 }
 
 
@@ -204,7 +202,7 @@ if($count==0)
         
 
         </script>
-        <title><?php echo $user; ?></title>
+        <title>SetBook - <?php echo $user; ?> - Friends</title>
 	<link rel="stylesheet" type="text/css" href="/style.css" />
     </head>
      <?php include $_SERVER['DOCUMENT_ROOT'].'/../templates/private_header.html'; ?>
