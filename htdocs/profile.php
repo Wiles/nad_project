@@ -27,10 +27,6 @@ FORM;
     mysql_select_db("nadproject")
         or die ("Database not found.");
 
-    //update users activity used for new post notification
-    $query = "UPDATE users SET lastActive=NOW() WHERE id='".$user."'";
-    mysql_query($query);
-
     // friend profile page
     if ( isset($_GET['id'] ) )
     {
@@ -67,6 +63,10 @@ FORM;
     // main profile page
     else
     {
+        //update users activity used for new post notification
+        $query = "UPDATE users SET lastActive=NOW() WHERE id='".$user."'";
+        mysql_query($query);
+
         $profile_name = $_SESSION['user_name'];
         $profileid = $_SESSION['user_id'];
     }
