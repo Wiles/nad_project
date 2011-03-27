@@ -131,7 +131,7 @@ else
                 //got name
                 $row2 = mysql_fetch_row($result2);
                 $friends =$friends."<fieldset >
-                                    <legend> <a href = \"profile.php?id=".$row[1]."\" >".$row2[0]."</a></legend>"
+                                    <legend> <a href = \"profile.php?id=".$row[0]."\" >".$row2[0]."</a></legend>"
                                     .$row2[1]."<br \>
                                     Birth date:".$row2[2].
                            "</fieldset> <br \>" ;
