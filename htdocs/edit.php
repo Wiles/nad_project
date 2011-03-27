@@ -57,7 +57,7 @@ if( isset($_POST['submitted']))
         $query .= 'name="'.mysql_real_escape_string($name).'", ';
     }
 
-    if( strlen($oldPassword) <= 0 )
+    if( strlen($password) != 0 )
     {
         if( $passwordValidator != $password)
         {
@@ -81,14 +81,19 @@ if( isset($_POST['submitted']))
         $query .= 'email="'.mysql_real_escape_string($email).'" ';
     }
 
-    if( $valid )
+    if( $valid)
     {
-        $query .= " WHERE id='".$_SESSION['user_id']."' AND password='".hashPassword($password)."';";
+        $query .= " WHERE id='".$_SESSION['user_id']."' AND password='".hashPassword($oldPassword)."';";
+        echo $query;
         $result = mysql_query($query);
 
         if( !$result )
         {
             $error = mysql_error();
+        }
+        else if ( mysql_affected_rows() == 0)
+        {
+            $error = "Incorrect Password.";
         }
     }
 }
