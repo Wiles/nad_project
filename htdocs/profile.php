@@ -64,7 +64,6 @@ FORM;
             $profileid = $_GET['id'];
         }
     }
-
     // main profile page
     else
     {
