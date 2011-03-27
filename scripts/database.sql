@@ -1,15 +1,8 @@
-/*
- * Description: creates the database for the nad project
- *  -add a sql user used by the admin application to connect
- *  -creates an admin user with email admin@admin.com and password admin
- * Authors: Eric Copeland, Thomas Kempton, Samuel Lewis, James Rockel
- */
-
--- MySQL dump 10.13  Distrib 5.1.52, for Win32 (ia32)
+-- MySQL dump 10.13  Distrib 5.1.49, for debian-linux-gnu (i686)
 --
 -- Host: localhost    Database: nadproject
 -- ------------------------------------------------------
--- Server version	5.1.52-community
+-- Server version	5.1.49-1ubuntu8.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -22,14 +15,14 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-
+--
+-- Temporary table structure for view `adminview`
+--
 CREATE DATABASE nadproject;
 CREATE USER 'nad_admin'@'localhost' IDENTIFIED BY 'admin';
 GRANT ALL ON nadproject.* TO 'nad_admin'@'localhost';
 USE 'nadproject';
---
--- Temporary table structure for view `adminview`
---
+
 DROP TABLE IF EXISTS `adminview`;
 /*!50001 DROP VIEW IF EXISTS `adminview`*/;
 SET @saved_cs_client     = @@character_set_client;
@@ -55,7 +48,7 @@ CREATE TABLE `auditlog` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`userid`),
   CONSTRAINT `user_id` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -103,18 +96,21 @@ DROP TABLE IF EXISTS `post`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `post` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `parent` int(11) DEFAULT NULL,
   `time` datetime NOT NULL,
   `text` varchar(1024) NOT NULL,
   `userid` int(11) NOT NULL,
+  `profileid` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `parent` (`parent`),
   KEY `parent_post` (`parent`),
   KEY `user` (`userid`),
-  CONSTRAINT `users_id` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  CONSTRAINT `parent_post` FOREIGN KEY (`parent`) REFERENCES `post` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  KEY `profileid` (`profileid`),
+  CONSTRAINT `parent_post` FOREIGN KEY (`parent`) REFERENCES `post` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  CONSTRAINT `post_ibfk_1` FOREIGN KEY (`profileid`) REFERENCES `users` (`id`),
+  CONSTRAINT `users_id` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -145,7 +141,7 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -154,7 +150,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'admin@admin.com','admin','2010-12-12','e3afed0047b08059d0fada10f400c1e5',1,'2010-12-14 00:00:00',0);
+INSERT INTO `users` VALUES (1,'admin@admin.com','admin','2010-12-12','21232f297a57a5a743894a0e4a801fc3',1,'2010-12-14 00:00:00',0);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -215,4 +211,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2011-03-20 16:15:58
+-- Dump completed on 2011-03-27 12:22:23
