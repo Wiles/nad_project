@@ -15,7 +15,7 @@ else
 }
 
 //Add request
-if( isset($_GET['id']))
+if( isset($_GET['id']) && $_GET['id'] != $_SESSION['user_id'])
 {
         //connect to server
     $conn = mysql_connect($db_host, $db_user, $db_password)
@@ -25,8 +25,19 @@ if( isset($_GET['id']))
     mysql_select_db("nadproject")
         or die ("Database not found.");
 
-    $query = "INSERT INTO friends (firstFriend, secondFriend, status) VALUES (".$_SESSION['user_id'].",".$_GET['id'].",'pending');";
-    mysql_query($query);
+    //Check that friendship does not exist
+    $query = "SELECT count(*) SET status='friends' WHERE (firstfriend='".$_GET['id']."' AND secondfriend='".$_SESSION['user_id']."' ) OR (secondfriend='".$_SESSION['user_id']."' AND firstfriend='".$_GET['id']."')";
+    $result = mysql_query($query);
+    if( $result)
+    {
+        $row = mysql_fetch_row($result);
+        $count = $row[0];
+        if( $count == "0")
+        {
+            $query = "INSERT INTO friends (firstFriend, secondFriend, status) VALUES (".$_SESSION['user_id'].",".$_GET['id'].",'pending');";
+            mysql_query($query);
+        }
+    }
     mysql_close();
 }
 
