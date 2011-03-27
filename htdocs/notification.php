@@ -20,7 +20,7 @@ if( isset($_SESSION['user_id']))
         $row = mysql_fetch_row($result);
         $time = $row[0];
 
-        $query = "SELECT count(*) FROM post WHERE time > '".$time."' AND profileid='".$_SESSION['user_id']."'";
+        $query = "SELECT count(*) FROM post WHERE parent IS NULL AND time > '".$time."' AND profileid='".$_SESSION['user_id']."'";
         $result = mysql_query($query);
         
         if( $result )
