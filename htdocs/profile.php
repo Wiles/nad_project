@@ -34,16 +34,7 @@
             <input type="button" value="Post" />
         </form>
 
-        <!--
-        <form method="POST" action ="<?=$_SERVER['PHP_SELF']?>">
-            <div id="error"><?php echo $error; ?></div>
-            E-mail:<br />
-            <input type="text" name="email" value ="<?php echo $email; ?>" />
-            Password:<br />
-            <input type="password" name="password" /><br /><br />
-            <input type="submit" value="Login!" />
-        </form>
-        -->
+        
     <?php include $_SERVER['DOCUMENT_ROOT'].'/../templates/private_footer.html'; ?>
     </body>
 </html>
