@@ -1,15 +1,15 @@
 ﻿body
 {
-	font-family:Arial, Helvetica, sans-serif;
-	font-size:medium;
-	color:black;
-	background-color:#96C5D5;	
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:medium;
+    color:black;	
 }
 
 h1.title{
-	font-family:Georgia, "Times New Roman", Times, serif;
-	font-size:xx-large;
-	color:navy;	
+    font-family:Georgia, "Times New Roman", Times, serif;
+    font-size:xx-large;
+    color:navy;
+    background-color:#96C5D5;
 }
 
 div.header
@@ -17,6 +17,7 @@ div.header
     position: relative;
     margin-left:auto;
     margin-right:auto;
+    background-color:#96C5D5;
 }
 
 div.login
@@ -32,16 +33,30 @@ div.displayname
 
 div.sidebar
 {
-    width: 25%;
+    width: 18%;
+    background-color:#96C5D5;
+    float: left;
 }
 
 div.maincontent
 {
     position: relative;
-	background-color:white;
+    background-color:white;
+    float: left;
+    margin-left: 1%;
 }
 
 tr.main
 {
-	vertical-align:top;
+    vertical-align:top;
+}
+
+div.post
+{
+    
+}
+
+div.comment
+{
+    
 }
