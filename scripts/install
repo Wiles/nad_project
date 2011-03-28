@@ -40,6 +40,8 @@ then run these
 	sudo pear install Mail-1.2.0
 	sudo pear install Mail_Mime-1.8.1
 	sudo pear install Net_STMP
+	sudo pear install Mail_Mime
+
 
 
 

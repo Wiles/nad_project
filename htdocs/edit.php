@@ -131,8 +131,9 @@ else
     <head>
         <title>Setbook - <?php echo $page_title; ?></title>
 	<link rel="stylesheet" type="text/css" href="/style.css" />
+        <script type="text/javascript" src="notify.js"></script>
     </head>
-    <body>
+    <body onload="getPostCount()">
 <?php include $_SERVER['DOCUMENT_ROOT'].'/../templates/private_header.html'; ?>
 
         <div class="error"><?php echo $error; ?></div>
