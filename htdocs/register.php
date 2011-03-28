@@ -85,7 +85,7 @@ if( isset($_POST['submitted']))
         }
         else
         {
-            $query = "SELECT id FROM users WHERE email='".mysql_real_escape_string($_POST['email'])."' AND password='".hashPassword($_POST['password'])."' LIMIT 1";
+            $query = "SELECT id, name FROM users WHERE email='".mysql_real_escape_string($_POST['email'])."' AND password='".hashPassword($_POST['password'])."' LIMIT 1";
 
             $result = mysql_query($query);
             if( mysql_num_rows($result)== 0)
@@ -98,6 +98,7 @@ if( isset($_POST['submitted']))
                 $row = mysql_fetch_row($result);
                 session_start();
                 $_SESSION['user_id'] = $row[0];
+		$_SESSION['user_name'] = $row[1];
                 header( 'Location: /profile.php');
             }
         }
