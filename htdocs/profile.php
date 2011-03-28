@@ -3,6 +3,7 @@
 
     session_start();
     $user = isset($_SESSION['user_id'])?$_SESSION['user_id']:"";
+    
     // 1 space is necessary
     $form = " ";
 
@@ -139,6 +140,7 @@
     <head>
         <title>Setbook - <?php echo $profile_name; ?></title>
 	<link rel="stylesheet" type="text/css" href="/style.css" />
+        <script type="text/javascript" src="notify.js"></script>
 
         <script type="text/javascript">
             <!--
@@ -164,7 +166,7 @@
             //-->
         </script>
     </head>
-    <body>
+    <body onload="getPostCount()">
     <?php include $_SERVER['DOCUMENT_ROOT'].'/../templates/private_header.html'; ?>
         <h2><?php echo $profile_name ?></h2>
 
