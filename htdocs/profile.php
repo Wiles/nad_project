@@ -93,28 +93,48 @@
         $row = mysql_fetch_row($result);
         while ($row != NULL)
         {
+            $query3 = "SELECT COUNT(*) FROM vote WHERE postid=".mysql_real_escape_string($row[5])." AND type='".mysql_real_escape_string("like")."';";
+            $result3 = mysql_query($query3);
+            $row3 = mysql_fetch_row($result3);
+            $likes = $row3[0];
+            $query3 = "SELECT COUNT(*) FROM vote WHERE postid=".mysql_real_escape_string($row[5])." AND type='".mysql_real_escape_string("dislike")."';";
+            $result3 = mysql_query($query3);
+            $row3 = mysql_fetch_row($result3);
+            $dislikes = $row3[0];
+            
             $postcount++;
             $legend = ($row[0] == $row[1])? $profile_name : $row[4];
             $posts = $posts."<div class=\"wrap\"><a href=\"profile.php?id=".$row[1]."\" >".$legend."</a><br/>"
                 .nl2br(htmlspecialchars($row[2]))."<br /><p class=\"postfoot\" >".$row[3]."</p>"
                 ."<p class=\"postfoot\" >"
-                ."<a href=\"javascript:vote()\" >"." Likes</a>&nbsp;-&nbsp;"
-                ."<a href=\"javascript:vote()\" >"." Dislikes</a>&nbsp;-&nbsp;"
+                ."<a href=\"javascript:submitVote(".$_SESSION['user_id'].", ".$row[5].", 'like')\" >".$likes."&nbsp;Likes</a>&nbsp;-&nbsp;"
+                ."<a href=\"javascript:submitVote(".$_SESSION['user_id'].", ".$row[5].", 'dislike')\" >".$dislikes."&nbsp;Dislikes</a>&nbsp;-&nbsp;"
                 ."<a href=\"javascript:toggleComments(".$postcount.")\" id=\"a".$postcount."\" >Show Comments</a></p>"."</div><hr/>";
 
             $posts = $posts."<div class=\"comments\" id=\"c".$postcount."\" style=\"display:none\" >";
 
             // comments loop!
-            $query2 = "SELECT profileid, userid, text, time, name FROM post LEFT JOIN (users) ON (post.userid=users.id) WHERE profileid=".mysql_real_escape_string($profileid)." AND parent=".mysql_real_escape_string($row[5])." ORDER BY time desc;";
+            $query2 = "SELECT profileid, userid, text, time, name, post.id FROM post LEFT JOIN (users) ON (post.userid=users.id) WHERE profileid=".mysql_real_escape_string($profileid)." AND parent=".mysql_real_escape_string($row[5])." ORDER BY time desc;";
             $result2 = mysql_query($query2);
             $row2 = mysql_fetch_row($result2);
             while ($row2 != NULL)
             {
+                $query3 = "SELECT COUNT(*) FROM vote WHERE postid=".mysql_real_escape_string($row2[5])." AND type='".mysql_real_escape_string("like")."';";
+                $result3 = mysql_query($query3);
+                $row3 = mysql_fetch_row($result3);
+                $likes = $row3[0];
+                $query3 = "SELECT COUNT(*) FROM vote WHERE postid=".mysql_real_escape_string($row2[5])." AND type='".mysql_real_escape_string("dislike")."';";
+                $result3 = mysql_query($query3);
+                $row3 = mysql_fetch_row($result3);
+                $dislikes = $row3[0];
+                
                 $posts = $posts."<div class=\"wrap\"><a href=\"profile.php?id=".$row2[1]."\" >".$row2[4]."<a></br />"
                     .nl2br(htmlspecialchars($row2[2]))."<br /><p class=\"postfoot\" >".$row2[3]."</p></div>"
-                    ."<p class=\"postfoot\" ><a href=\"javascript:vote()\" >Likes</a>&nbsp;-&nbsp;"
-                    ."<a href=\"javascript:vote()\" >Dislikes</a></p>"
+                    ."<p class=\"postfoot\" >"
+                    ."<a href=\"javascript:submitVote(".$_SESSION['user_id'].", ".$row2[5].", 'like')\" >".$likes."&nbsp;Likes</a>&nbsp;-&nbsp;"
+                    ."<a href=\"javascript:submitVote(".$_SESSION['user_id'].", ".$row2[5].", 'dislike')\" >".$dislikes."&nbsp;Dislikes</a></p>"
                     ."<hr/>\n";
+                
                 $row2 = mysql_fetch_row($result2);
             }
 
@@ -140,7 +160,7 @@
         ."<input type=\"hidden\" name=\"userid\" value=".$user." />"
         ."<input type=\"hidden\" name=\"parentid\" value="."NULL"." />"
         ."</form>\n"
-        ."<form method=\"POST\" action=\"profile.php?id=\"".$profileid."\">"
+        ."<form method=\"POST\" action=\"profile.php?id=".$profileid."\" id=\"voteForm\">"
         ."<input type=\"hidden\" name=\"postid\" />"
         ."<input type=\"hidden\" name=\"userid\" />"
         ."<input type=\"hidden\" name=\"type\" />"
@@ -174,6 +194,14 @@
                     document.getElementById("a" + id).innerHTML = "Hide Comments";
                 }
             }
+
+            function submitVote(user, post, type)
+            {
+                document.getElementById("userid").value = user;
+                document.getElementById("postid").value = post;
+                document.getElementById("type").value = type;
+                document.getElementById("voteForm").submit();
+            }
             //-->
         </script>
     </head>
@@ -183,7 +211,6 @@
 
         <?php echo $form ?>
         <?php echo $posts ?>
-
 
     <?php include $_SERVER['DOCUMENT_ROOT'].'/../templates/private_footer.html'; ?>
     </body>
