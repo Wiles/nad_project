@@ -248,18 +248,19 @@ if($count==0)
 ?>
 <html>
     <head>
+        <script type="text/javascript" src="notify.js"></script>
         <script type ="text/javascript">
         function load_profile(id)
         {
             document.getElementsByName(profileload).value = id;
         }
-
         
 
         </script>
         <title>SetBook - <?php echo $user; ?> - Friends</title>
 	<link rel="stylesheet" type="text/css" href="/style.css" />
     </head>
+    <body onload="getPostCount()">
      <?php include $_SERVER['DOCUMENT_ROOT'].'/../templates/private_header.html'; ?>
             <input type="hidden" name="profileload" value="0"/>
             <div id="error"><?php echo $error; ?></div>
@@ -270,4 +271,5 @@ if($count==0)
             Friends:<br />
             <?php echo $friends?><br />
     <?php include $_SERVER['DOCUMENT_ROOT'].'/../templates/private_footer.html'; ?>
+    </body>
 </html>
