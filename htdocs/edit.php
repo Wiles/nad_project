@@ -1,4 +1,20 @@
 <?php
+
+
+/**
+ * edit.php
+ *
+ * This php page will allow users of the setbook website to edit their
+ * profile preferences. It uses a form to gather the updated information,
+ * and connects do the database to update with the new information.
+ *
+ * Authors:	Eric Copeland, Tom Kempton, Samuel Lewis, James Rockel
+ * Date:	Sunday March 27th, 2011
+ * Assignment:	NAD Project
+ * Milesstone:	Apache Client
+ */
+
+
 require $_SERVER['DOCUMENT_ROOT'].'/../includes/database.php';
 $page_title = "Preferences";
 
