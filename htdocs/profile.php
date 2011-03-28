@@ -6,12 +6,13 @@
     
     // 1 space is necessary
     $form = " ";
+    $me = false;
 
     if( isset($_GET['id']))
     {
         if( $_SESSION['user_id'] == $_GET['id'])
         {
-            header( 'Location: /profile.php') ;
+            $me = true;
         }
     }
     if( $user == "" )
@@ -36,6 +37,23 @@
             .")";
         mysql_query($query);
     }
+    
+    // handle a vote
+    if ( isset($_POST["ctype"]) )
+    {
+        $query = "SELECT id FROM vote WHERE postid=".mysql_real_escape_string($_POST['cpostid'])
+            ." AND userid=".mysql_real_escape_string($_POST['cuserid']).";";
+        $result = mysql_query($query);
+        if (!$result || mysql_num_rows($result)== 0)
+        {
+            $query = "INSERT INTO vote (postid, userid, type) VALUES ("
+                .mysql_real_escape_string($_POST['cpostid']).", "
+                .mysql_real_escape_string($_POST['cuserid']).", '"
+                .mysql_real_escape_string($_POST['ctype'])
+                ."');";
+            mysql_query($query);
+        }
+    }
 
     // friend profile page
     if ( isset($_GET['id'] ) )
@@ -43,11 +61,11 @@
         //Check for friend ship
         $query = "SELECT firstfriend, secondfriend, status FROM friends WHERE (status = 'friends' AND (firstFriend='".$_GET['id']."' OR secondFriend='".$_GET['id']."'))";
         $result = mysql_query($query);
-        if( !$result )
+        if( !$result && $me == false)
         {
             header( 'Location: /profile.php');
         }
-        else if( mysql_num_rows($result) == 0)
+        else if( mysql_num_rows($result) == 0 && $me == false)
         {
             //not friends
             $form = "";
@@ -141,7 +159,7 @@
             $posts = $posts."<form method=\"POST\" action =\"profile.php?id=".$profileid."\">"
                 ."<textarea id =\"message\" name=\"message\" onKeyPress=\"textLimit(this.form.message, 1024)\" rows=\"2\" cols=\"30\"></textarea><br />"
                 ."<input type=\"submit\" value=\"Reply\" />"
-                ."<input type=\"hidden\" name=\"profileid\" value=".$profileid." >"
+                ."<input type=\"hidden\" name=\"profileid\" value=".$profileid." />"
                 ."<input type=\"hidden\" name=\"userid\" value=".$user." />"
                 ."<input type=\"hidden\" name=\"parentid\" value=".$row[5]." />"
                 ."</form></div>\n";
@@ -153,18 +171,18 @@
     }
     mysql_close();
 
-    $form = "<form method=\"POST\" action =\"profile.php?id=".$profileid."\">"
-        ."<textarea id =\"message\" name=\"message\" onKeyPress=\"textLimit(this.form.message, 1024)\" rows=\"5\" cols=\"50\"></textarea><br />"
-        ."<input type=\"submit\" value=\"Post\" />"
-        ."<input type=\"hidden\" name=\"profileid\" value=".$profileid." />"
-        ."<input type=\"hidden\" name=\"userid\" value=".$user." />"
-        ."<input type=\"hidden\" name=\"parentid\" value="."NULL"." />"
-        ."</form>\n"
-        ."<form method=\"POST\" action=\"profile.php?id=".$profileid."\" id=\"voteForm\">"
-        ."<input type=\"hidden\" name=\"postid\" />"
-        ."<input type=\"hidden\" name=\"userid\" />"
-        ."<input type=\"hidden\" name=\"type\" />"
-        ."</form>\n"
+    $form = "<form method=\"POST\" action =\"profile.php?id=".$profileid."\" >\n"
+        ."<textarea id =\"message\" name=\"message\" onKeyPress=\"textLimit(this.form.message, 1024)\" rows=\"5\" cols=\"50\"></textarea><br />\n"
+        ."<input type=\"submit\" value=\"Post\" />\n"
+        ."<input type=\"hidden\" name=\"profileid\" value=".$profileid." />\n"
+        ."<input type=\"hidden\" name=\"userid\" value=".$user." />\n"
+        ."<input type=\"hidden\" name=\"parentid\" value="."NULL"." />\n"
+        ."</form>\n\n"
+        ."<form method=\"POST\" action=\"profile.php?id=".$profileid."\" id=\"voteForm\" name=\"voteForm\" >\n"
+        ."<input type=\"hidden\" name=\"cpostid\" id=\"cpostid\" value =\"\" />\n"
+        ."<input type=\"hidden\" name=\"cuserid\" id=\"cuserid\" value =\"\" />\n"
+        ."<input type=\"hidden\" name=\"ctype\" id=\"ctype\" value =\"\" />\n"
+        ."</form>\n";
 
 ?>
 <html>
@@ -197,10 +215,10 @@
 
             function submitVote(user, post, type)
             {
-                document.getElementById("userid").value = user;
-                document.getElementById("postid").value = post;
-                document.getElementById("type").value = type;
-                document.getElementById("voteForm").submit();
+                document.getElementById("cuserid").value = user;
+                document.getElementById("cpostid").value = post;
+                document.getElementById("ctype").value = type;
+                document.voteForm.submit();
             }
             //-->
         </script>
