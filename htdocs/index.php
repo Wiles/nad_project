@@ -1,4 +1,17 @@
 <?php
+
+/**
+ * index.php
+ *
+ * This php page is a basic page for the SETBook website that displays 
+ *	a login form. 
+ *
+ * Authors:	Eric Copeland, Tom Kempton, Samuel Lewis, James Rockel
+ * Date:	Sunday March 27th, 2011
+ * Assignment:	NAD Project
+ * Milesstone:	Apache Client
+ */
+
 require $_SERVER['DOCUMENT_ROOT'].'/../includes/database.php';
 $page_title = "Login";
 $error = "&nbsp;";

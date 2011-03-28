@@ -1,5 +1,17 @@
 <?php
 
+/**
+ * invite.php
+ *
+ * This php page will get an email address from a POST, and send an email
+ * 	to that address with a link to the registration page.
+ *
+ * Authors:	Eric Copeland, Tom Kempton, Samuel Lewis, James Rockel
+ * Date:	Sunday March 27th, 2011
+ * Assignment:	NAD Project
+ * Milesstone:	Apache Client
+ */
+
     include('Mail.php');
     include('Mail/mime.php');
     require $_SERVER['DOCUMENT_ROOT'].'/../includes/database.php';

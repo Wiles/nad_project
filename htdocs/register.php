@@ -1,4 +1,18 @@
 <?php
+
+/**
+ * register.php
+ *
+ * This php page will allow users to enter registration information, 
+ * 	when the form is submitted, the fields are validated before 
+ *	adding the new user to the database.
+ *
+ * Authors:	Eric Copeland, Tom Kempton, Samuel Lewis, James Rockel
+ * Date:	Sunday March 27th, 2011
+ * Assignment:	NAD Project
+ * Milesstone:	Apache Client
+ */
+
 require $_SERVER['DOCUMENT_ROOT'].'/../includes/database.php';
 $page_title = "Registration";
 
