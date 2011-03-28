@@ -1,4 +1,18 @@
 <?php
+
+/**
+ * friends.php
+ *
+ * This php page will allow users to manage their friends associated with their
+ * the setbook profile. 
+ *
+ * Authors:	Eric Copeland, Tom Kempton, Samuel Lewis, James Rockel
+ * Date:	Sunday March 27th, 2011
+ * Assignment:	NAD Project
+ * Milesstone:	Apache Client
+ */
+
+
 require $_SERVER['DOCUMENT_ROOT'].'/../includes/database.php';
 $page_title = "Friends";
 $error = "&nbsp;";

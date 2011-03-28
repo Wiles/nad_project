@@ -1,4 +1,16 @@
 <?php
+
+/**
+ * notification.php
+ *
+ * This php will notify users of new posts when they log in.
+ *
+ * Authors:	Eric Copeland, Tom Kempton, Samuel Lewis, James Rockel
+ * Date:	Sunday March 27th, 2011
+ * Assignment:	NAD Project
+ * Milesstone:	Apache Client
+ */
+
 require $_SERVER['DOCUMENT_ROOT'].'/../includes/database.php';
 session_start();
 if( isset($_SESSION['user_id']))
