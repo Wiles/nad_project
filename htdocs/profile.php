@@ -26,7 +26,7 @@
         or die ("Database not found.");
 
     // handle a new post
-    if ( isset($_POST['message']) && (strlen($_POST['message'].trim()) > 0))
+    if ( isset($_POST['message']) && (trim(strlen($_POST['message'])) > 0))
     {
         $query = "INSERT INTO post (parent, time, text, userid, profileid) VALUES ("
             .$_POST['parentid'].", "
