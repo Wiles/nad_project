@@ -97,7 +97,10 @@
             $legend = ($row[0] == $row[1])? $profile_name : $row[4];
             $posts = $posts."<div class=\"wrap\"><a href=\"profile.php?id=".$row[1]."\" >".$legend."</a><br/>"
                 .nl2br(htmlspecialchars($row[2]))."<br /><p class=\"postfoot\" >".$row[3]."</p>"
-                ."<p class=\"postfoot\" ><a href=\"javascript:toggleComments(".$postcount.")\" id=\"a".$postcount."\" >Show Comments</a></p>"."</div><hr/>";
+                ."<p class=\"postfoot\" >"
+                ."<a href=\"javascript:vote()\" >"." Likes</a>&nbsp;-&nbsp;"
+                ."<a href=\"javascript:vote()\" >"." Dislikes</a>&nbsp;-&nbsp;"
+                ."<a href=\"javascript:toggleComments(".$postcount.")\" id=\"a".$postcount."\" >Show Comments</a></p>"."</div><hr/>";
 
             $posts = $posts."<div class=\"comments\" id=\"c".$postcount."\" style=\"display:none\" >";
 
@@ -108,7 +111,10 @@
             while ($row2 != NULL)
             {
                 $posts = $posts."<div class=\"wrap\"><a href=\"profile.php?id=".$row2[1]."\" >".$row2[4]."<a></br />"
-                    .nl2br(htmlspecialchars($row2[2]))."<br /><p class=\"postfoot\" >".$row2[3]."</p></div>"."<hr/>\n";
+                    .nl2br(htmlspecialchars($row2[2]))."<br /><p class=\"postfoot\" >".$row2[3]."</p></div>"
+                    ."<p class=\"postfoot\" ><a href=\"javascript:vote()\" >Likes</a>&nbsp;-&nbsp;"
+                    ."<a href=\"javascript:vote()\" >Dislikes</a></p>"
+                    ."<hr/>\n";
                 $row2 = mysql_fetch_row($result2);
             }
 
@@ -130,10 +136,15 @@
     $form = "<form method=\"POST\" action =\"profile.php?id=".$profileid."\">"
         ."<textarea id =\"message\" name=\"message\" onKeyPress=\"textLimit(this.form.message, 1024)\" rows=\"5\" cols=\"50\"></textarea><br />"
         ."<input type=\"submit\" value=\"Post\" />"
-        ."<input type=\"hidden\" name=\"profileid\" value=".$profileid." >"
+        ."<input type=\"hidden\" name=\"profileid\" value=".$profileid." />"
         ."<input type=\"hidden\" name=\"userid\" value=".$user." />"
         ."<input type=\"hidden\" name=\"parentid\" value="."NULL"." />"
-        ."</form>\n";
+        ."</form>\n"
+        ."<form method=\"POST\" action=\"profile.php?id=\"".$profileid."\">"
+        ."<input type=\"hidden\" name=\"postid\" />"
+        ."<input type=\"hidden\" name=\"userid\" />"
+        ."<input type=\"hidden\" name=\"type\" />"
+        ."</form>\n"
 
 ?>
 <html>
