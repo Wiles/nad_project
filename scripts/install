@@ -1,4 +1,4 @@
-How to setup and install apache, php, and mysql in Ubuntu 10.10
+How to setup and install apache, php with pear mail, and mysql in Ubuntu 10.10
 
 Run these command following any onscreen instructions:
 
@@ -22,6 +22,12 @@ Edit /etc/apache2/sites-available/default
 
 Run
 	sudo /etc/init.d/apache2 restart
+
+Mail requirements:
+    sudo apt-get install php-pear
+
+    sudo pear install Mail
+    sudo pear install Net_SMTP
 
 Everything should now be happy.
 
