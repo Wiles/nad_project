@@ -11,7 +11,14 @@ namespace iis
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["user_id"] == null)
+            {
+                Response.Redirect("index.aspx");
+            }
+            else
+            {
+                lb_userid.Text = ((Int32)Session["user_id"]).ToString(); ;
+            }
         }
     }
 }

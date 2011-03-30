@@ -9,7 +9,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <!--#include FILE="public_header.html" --> 
+    <!--#include FILE="private_header.html" --> 
     <div>
     <div class="error" id ="error">
         <asp:Label ID="lb_error" runat="server" Text=" "></asp:Label></div>
@@ -39,7 +39,7 @@
         <br />
     <asp:Button ID="btn_register" runat="server" Text="Register" onclick="btn_login_Click" />
     </div>
-    <!--#include FILE="public_footer.html" --> 
+    <!--#include FILE="private_footer.html" --> 
     </form>
 </body>
 </html>

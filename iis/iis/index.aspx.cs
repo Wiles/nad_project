@@ -28,6 +28,7 @@ namespace iis
         {
             string password = Shared.HashPassword(tb_password.Text);
             string email = tb_username.Text;
+            Int32 id = 0;
 
             string query = "SELECT id from Users WHERE email='" + email + "' AND password='" + password + "'";
             
@@ -39,7 +40,7 @@ namespace iis
                 cmd.Connection = conn;
                 conn.Open();
 
-                reader = cmd.ExecuteReader();
+                id = (Int32)cmd.ExecuteScalar();
             }
             catch
             {
@@ -49,17 +50,9 @@ namespace iis
                 return;
             }
 
-            if (reader.HasRows == true)
-            {
-                conn.Close();
-                Session["user_id"] = reader["id"];
-                Response.Redirect("profile.aspx");
-            }
-            else
-            {
-                lb_error.Text = "Invalid Email or Password.";
-                return;
-            }
+            conn.Close();
+            Session["user_id"] = id;
+            Response.Redirect("profile.aspx");
         }
     }
 }
