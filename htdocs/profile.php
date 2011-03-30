@@ -41,7 +41,7 @@
     // handle a vote
     if ( isset($_POST["ctype"]) )
     {
-        $query = "SELECT id FROM vote WHERE postid=".mysql_real_escape_string($_POST['cpostid'])
+        $query = "SELECT type FROM vote WHERE postid=".mysql_real_escape_string($_POST['cpostid'])
             ." AND userid=".mysql_real_escape_string($_POST['cuserid']).";";
         $result = mysql_query($query);
         if (!$result || mysql_num_rows($result)== 0)
@@ -53,6 +53,15 @@
                 ."');";
             mysql_query($query);
         }
+	else
+	{
+		
+		$row = mysql_fetch_row($result);
+		$type = ($row[0] == "like")? "dislike" : "like" ;
+		$query = "UPDATE vote SET type='".$type."' WHERE postid=".mysql_real_escape_string($_POST['cpostid'])
+			." AND userid=".mysql_real_escape_string($_POST['cuserid']).";";
+            	mysql_query($query);
+	}
     }
 
     // friend profile page
