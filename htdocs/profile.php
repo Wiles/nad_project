@@ -57,10 +57,13 @@
 	{
 		
 		$row = mysql_fetch_row($result);
-		$type = ($row[0] == "like")? "dislike" : "like" ;
-		$query = "UPDATE vote SET type='".$type."' WHERE postid=".mysql_real_escape_string($_POST['cpostid'])
-			." AND userid=".mysql_real_escape_string($_POST['cuserid']).";";
-            	mysql_query($query);
+		if ($row[0] != $_POST['ctype'])
+		{
+			$type = ($row[0] == "like")? "dislike" : "like" ;
+			$query = "UPDATE vote SET type='".$type."' WHERE postid=".mysql_real_escape_string($_POST['cpostid'])
+				." AND userid=".mysql_real_escape_string($_POST['cuserid']).";";
+            		mysql_query($query);
+		}
 	}
     }
 
