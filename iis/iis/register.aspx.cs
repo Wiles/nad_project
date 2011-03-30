@@ -96,7 +96,7 @@ namespace iis
 
                     if( reader.HasRows )
                     {
-                        Session["user_id"] = reader["id"];
+                        Session["user_id"] = reader["id"].ToString();
                         Response.Redirect("profile.aspx");
                     }
                     else

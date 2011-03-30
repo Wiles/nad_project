@@ -11,13 +11,14 @@ namespace iis
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            Page.Header.Title = "SetBook - Profile";
             if (Session["user_id"] == null)
             {
                 Response.Redirect("index.aspx");
             }
             else
             {
-                lb_userid.Text = ((Int32)Session["user_id"]).ToString(); ;
+                lb_userid.Text = ((string)Session["user_id"]);
             }
         }
     }

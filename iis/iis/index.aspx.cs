@@ -51,7 +51,7 @@ namespace iis
             }
 
             conn.Close();
-            Session["user_id"] = id;
+            Session["user_id"] = id.ToString();
             Response.Redirect("profile.aspx");
         }
     }
