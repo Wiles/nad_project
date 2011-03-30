@@ -7,37 +7,43 @@
     <title></title>
     <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
-<body>
-    <form id="form1" runat="server">
+<body>   
     <!--#include FILE="private_header.html" --> 
-       <div>
+    <form id="form1" runat="server">
+    <div>
     <div class="error" id ="error">
         <asp:Label ID="lb_error" runat="server" Text=" "></asp:Label></div>
-    Name:<br />
+        
+    old Password*:<br />
+    <asp:TextBox ID="tb_old_password" textmode="password" runat="server"></asp:TextBox>   
+    <asp:Label ID="lb_old_password" runat="server"></asp:Label>
+    <br />
+    Name*:<br />
     <asp:TextBox ID="tb_name" runat="server"></asp:TextBox>   
     <asp:Label ID="lb_name" runat="server"></asp:Label>
     <br />
-    E-mail:<br />
+    E-mail*:<br />
     <asp:TextBox ID="tb_email" runat="server"></asp:TextBox>   
     <asp:Label ID="lb_email" runat="server"></asp:Label>
     <br />
-    Password:<br />
-    <asp:TextBox ID="tb_password" textmode="password" runat="server"></asp:TextBox>   
-    <asp:Label ID="lb_password" runat="server"></asp:Label>
+    New Password:<br />
+    <asp:TextBox ID="tb_new_password" textmode="password" runat="server"></asp:TextBox>   
+    <asp:Label ID="lb_new_password" runat="server"></asp:Label>
    
         <br />
     Again:<br />
-    <asp:TextBox ID="tb_password_again" textmode="password" runat="server"></asp:TextBox>
+    <asp:TextBox ID="tb_new_password_again" textmode="password" runat="server"></asp:TextBox>
         <br />
-    Date of Birth:<br />
+    Date of Birth*:<br />
     Year:<asp:DropDownList ID="dd_year" runat="server">
         </asp:DropDownList>
     Month:<asp:DropDownList ID="dd_month" runat="server">
         </asp:DropDownList>
         Day:<asp:DropDownList ID="dd_day" runat="server">
         </asp:DropDownList><asp:Label ID="lb_date" runat="server"></asp:Label>
-        <br />
-    <asp:Button ID="btn_register" runat="server" Text="Register" />
+           <br />
+           <br />
+    <asp:Button ID="btn_edit" runat="server" Text="Update" onclick="btn_edit_Click" />
     </div>
     <!--#include FILE="private_footer.html" --> 
     </form>

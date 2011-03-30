@@ -40,6 +40,24 @@ namespace iis {
         protected global::System.Web.UI.WebControls.Label lb_error;
         
         /// <summary>
+        /// tb_old_password control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tb_old_password;
+        
+        /// <summary>
+        /// lb_old_password control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lb_old_password;
+        
+        /// <summary>
         /// tb_name control.
         /// </summary>
         /// <remarks>
@@ -76,31 +94,31 @@ namespace iis {
         protected global::System.Web.UI.WebControls.Label lb_email;
         
         /// <summary>
-        /// tb_password control.
+        /// tb_new_password control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tb_password;
+        protected global::System.Web.UI.WebControls.TextBox tb_new_password;
         
         /// <summary>
-        /// lb_password control.
+        /// lb_new_password control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lb_password;
+        protected global::System.Web.UI.WebControls.Label lb_new_password;
         
         /// <summary>
-        /// tb_password_again control.
+        /// tb_new_password_again control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tb_password_again;
+        protected global::System.Web.UI.WebControls.TextBox tb_new_password_again;
         
         /// <summary>
         /// dd_year control.
@@ -139,12 +157,12 @@ namespace iis {
         protected global::System.Web.UI.WebControls.Label lb_date;
         
         /// <summary>
-        /// btn_register control.
+        /// btn_edit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_register;
+        protected global::System.Web.UI.WebControls.Button btn_edit;
     }
 }

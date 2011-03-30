@@ -26,16 +26,17 @@ namespace iis
             Page.Header.Title = "SetBook - Preferences";
 
             if (!this.IsPostBack)
-            {
-                Shared.GenerateNumberList(dd_year.Items, 1900, 2100);
-                Shared.GenerateNumberList(dd_month.Items, 1, 12);
-                Shared.GenerateNumberList(dd_day.Items, 1, 31);
+            {                
+                InitializeValues();
             }
-            InitializeValues();
         }
 
         private void InitializeValues()
         {
+            Shared.GenerateNumberList(dd_year.Items, 1900, 2100);
+            Shared.GenerateNumberList(dd_month.Items, 1, 12);
+            Shared.GenerateNumberList(dd_day.Items, 1, 31);
+
             string query = "SELECT name,email,dateOfBirth FROM users WHERE id='" + Session["user_id"] + "';";
 
             try
@@ -72,5 +73,189 @@ namespace iis
             }
         }
 
+        protected void btn_register_Click(object sender, EventArgs e)
+        {
+            string name = tb_name.Text;
+            string email = tb_email.Text;
+            string dateOfBirth = "";
+            string oldPassword = tb_old_password.Text;
+            string firstPassword = tb_new_password.Text;
+            string secondPassword = tb_new_password_again.Text;
+
+            string query = "UPDATE users SET ";
+
+            bool valid = true;
+
+            try
+            {
+                dateOfBirth = (new DateTime(Int32.Parse(dd_year.SelectedValue), Int32.Parse(dd_month.SelectedValue), Int32.Parse(dd_day.SelectedValue))).ToString("yyyy-MM-dd");
+
+            }
+            catch
+            {
+                valid = false;
+                lb_date.Text = "Invalid date.";
+            }
+
+            query += "dateOfBirth='" + dateOfBirth + "', ";
+
+            if (name.Length == 0)
+            {
+                valid = false;
+                lb_name.Text = "Name must not be blank.";
+            }
+            else
+            {
+                query += "name='" + name + "', ";
+            }
+
+            if (firstPassword.Length != 0)
+            {
+                if (firstPassword != secondPassword)
+                {
+                    valid = false;
+                    lb_new_password.Text = "Passwords must match.";
+                }
+                else
+                {
+                    query += "password='" + Shared.HashPassword(firstPassword) + "', ";
+                }
+            }
+
+            if (!Shared.ValidateEmail(email))
+            {
+                valid = false;
+                lb_email.Text = "Email is invalid.";
+            }
+            else
+            {
+                query += "email='" + email + "' ";
+            }
+
+            if (valid)
+            {
+                query += "WHERE id='" + Session["user_id"] + "' AND password='" + Shared.HashPassword(oldPassword) + "'";
+                OdbcConnection conn = null;
+                OdbcCommand cmd;
+
+                try
+                {
+                    conn = new OdbcConnection(Shared.ConnectionString());
+                    cmd = new OdbcCommand(query);
+                    cmd.Connection = conn;
+                    conn.Open();
+
+                    if (cmd.ExecuteNonQuery() == 0)
+                    {
+                        conn.Close();
+                        lb_old_password.Text = "Incorrect Password.";
+                        return;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    if (conn != null)
+                    {
+                        conn.Close();
+                    }
+                    lb_error.Text = ex.Message;
+                    return;
+                }
+
+                conn.Close();
+            }
+        }
+
+        protected void btn_edit_Click(object sender, EventArgs e)
+        {
+            string name = tb_name.Text;
+            string email = tb_email.Text;
+            string dateOfBirth = "";
+            string oldPassword = tb_old_password.Text;
+            string firstPassword = tb_new_password.Text;
+            string secondPassword = tb_new_password_again.Text;
+
+            string query = "UPDATE users SET ";
+
+            bool valid = true;
+
+            try
+            {
+                dateOfBirth = (new DateTime(Int32.Parse(dd_year.SelectedValue), Int32.Parse(dd_month.SelectedValue), Int32.Parse(dd_day.SelectedValue))).ToString("yyyy-MM-dd");
+
+            }
+            catch
+            {
+                valid = false;
+                lb_date.Text = "Invalid date.";
+            }
+
+            query += "dateOfBirth='" + dateOfBirth + "', ";
+
+            if (name.Length == 0)
+            {
+                valid = false;
+                lb_name.Text = "Name must not be blank.";
+            }
+            else
+            {
+                query += "name='" + name + "', ";
+            }
+
+            if (firstPassword.Length != 0)
+            {
+                if (firstPassword != secondPassword)
+                {
+                    valid = false;
+                    lb_new_password.Text = "Passwords must match.";
+                }
+                else
+                {
+                    query += "password='" + Shared.HashPassword(firstPassword) + "', ";
+                }
+            }
+
+            if (!Shared.ValidateEmail(email))
+            {
+                valid = false;
+                lb_email.Text = "Email is invalid.";
+            }
+            else
+            {
+                query += "email='" + email + "' ";
+            }
+
+            if (valid)
+            {
+                query += "WHERE id='" + Session["user_id"] + "' AND password='" + Shared.HashPassword(oldPassword) + "';";
+                OdbcConnection conn = null;
+                OdbcCommand cmd;
+
+                try
+                {
+                    conn = new OdbcConnection(Shared.ConnectionString());
+                    cmd = new OdbcCommand(query);
+                    cmd.Connection = conn;
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    //TODO - password check
+                    conn.Close();
+                    return;
+                }
+                catch (Exception ex)
+                {
+                    if (conn != null)
+                    {
+                        conn.Close();
+                    }
+                    lb_error.Text = ex.Message;
+                    return;
+                }
+
+                conn.Close();
+            }
+        }
+
+        
     }
 }
