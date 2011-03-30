@@ -180,21 +180,21 @@
         }
 
         $posts = $posts."</div>";
+
+    	$form = "<form method=\"POST\" action =\"profile.php?id=".$profileid."\" >\n"
+        	."<textarea id =\"message\" name=\"message\" onKeyPress=\"textLimit(this.form.message, 1024)\" rows=\"5\" cols=\"50\"></textarea><br />\n"
+        	."<input type=\"submit\" value=\"Post\" />\n"
+        	."<input type=\"hidden\" name=\"profileid\" value=".$profileid." />\n"
+        	."<input type=\"hidden\" name=\"userid\" value=".$user." />\n"
+        	."<input type=\"hidden\" name=\"parentid\" value="."NULL"." />\n"
+        	."</form>\n\n"
+        	."<form method=\"POST\" action=\"profile.php?id=".$profileid."\" id=\"voteForm\" name=\"voteForm\" >\n"
+        	."<input type=\"hidden\" name=\"cpostid\" id=\"cpostid\" value =\"\" />\n"
+        	."<input type=\"hidden\" name=\"cuserid\" id=\"cuserid\" value =\"\" />\n"
+        	."<input type=\"hidden\" name=\"ctype\" id=\"ctype\" value =\"\" />\n"
+        	."</form>\n";
     }
     mysql_close();
-
-    $form = "<form method=\"POST\" action =\"profile.php?id=".$profileid."\" >\n"
-        ."<textarea id =\"message\" name=\"message\" onKeyPress=\"textLimit(this.form.message, 1024)\" rows=\"5\" cols=\"50\"></textarea><br />\n"
-        ."<input type=\"submit\" value=\"Post\" />\n"
-        ."<input type=\"hidden\" name=\"profileid\" value=".$profileid." />\n"
-        ."<input type=\"hidden\" name=\"userid\" value=".$user." />\n"
-        ."<input type=\"hidden\" name=\"parentid\" value="."NULL"." />\n"
-        ."</form>\n\n"
-        ."<form method=\"POST\" action=\"profile.php?id=".$profileid."\" id=\"voteForm\" name=\"voteForm\" >\n"
-        ."<input type=\"hidden\" name=\"cpostid\" id=\"cpostid\" value =\"\" />\n"
-        ."<input type=\"hidden\" name=\"cuserid\" id=\"cuserid\" value =\"\" />\n"
-        ."<input type=\"hidden\" name=\"ctype\" id=\"ctype\" value =\"\" />\n"
-        ."</form>\n";
 
 ?>
 <html>
