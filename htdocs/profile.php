@@ -7,6 +7,7 @@
     // 1 space is necessary
     $form = " ";
     $me = false;
+	$friends = true;
 
     if( isset($_GET['id']))
     {
@@ -71,7 +72,7 @@
     if ( isset($_GET['id'] ) )
     {
         //Check for friend ship
-        $query = "SELECT firstfriend, secondfriend, status FROM friends WHERE (status = 'friends' AND (firstFriend='".$_GET['id']."' OR secondFriend='".$_GET['id']."'))";
+        $query = "SELECT firstfriend, secondfriend, status FROM friends WHERE (status = 'friends' AND ((firstFriend='".$_GET['id']."' AND secondFriend='".$_SESSION['user_id']."') OR (firstFriend='".$_SESSION['user_id']."' AND secondFriend='".$_GET['id']."')))";
         $result = mysql_query($query);
         if( !$result && $me == false)
         {
@@ -81,8 +82,8 @@
         {
             //not friends
             $form = "";
+		$friends = false;
             $posts = "You are not friends with this user. <a href = 'friends.php/?id=".$_GET['id']."' >send invite.</a>";
-
         }
 
         $query = "SELECT name FROM users WHERE id=".mysql_real_escape_string($_GET['id']);
@@ -101,7 +102,7 @@
         }
     }
     // main profile page
-    else
+    else if ($form != "")
     {
         //update users activity used for new post notification
         $query = "UPDATE users SET lastActive=NOW() WHERE id='".$user."'";
@@ -196,6 +197,10 @@
     }
     mysql_close();
 
+	if ($me == true)
+	{
+        	header( 'Location: /') ;
+	}
 ?>
 <html>
     <head>
