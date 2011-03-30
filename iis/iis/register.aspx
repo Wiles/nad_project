@@ -9,10 +9,11 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <!--#include FILE="private_header.html" --> 
+    <!--#include FILE="public_header.html" --> 
     <div>
     <div class="error" id ="error">
         <asp:Label ID="lb_error" runat="server" Text=" "></asp:Label></div>
+
     Name:<br />
     <asp:TextBox ID="tb_name" runat="server"></asp:TextBox>   
     <asp:Label ID="lb_name" runat="server"></asp:Label>
@@ -29,6 +30,7 @@
     Again:<br />
     <asp:TextBox ID="tb_password_again" textmode="password" runat="server"></asp:TextBox>
         <br />
+        <br />
     Date of Birth:<br />
     Year:<asp:DropDownList ID="dd_year" runat="server">
         </asp:DropDownList>
@@ -37,9 +39,10 @@
         Day:<asp:DropDownList ID="dd_day" runat="server">
         </asp:DropDownList><asp:Label ID="lb_date" runat="server"></asp:Label>
         <br />
+        <br />
     <asp:Button ID="btn_register" runat="server" Text="Register" onclick="btn_login_Click" />
     </div>
-    <!--#include FILE="private_footer.html" --> 
+    <!--#include FILE="public_footer.html" --> 
     </form>
 </body>
 </html>

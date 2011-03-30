@@ -9,9 +9,9 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <!--#include FILE="public_header.html" --> 
+    <!--#include FILE="private_header.html" --> 
     <asp:Label ID="lb_userid" runat="server" Text="Label"></asp:Label>
-    <!--#include FILE="public_footer.html" --> 
+    <!--#include FILE="private_footer.html" --> 
     </form>
 </body>
 </html>
