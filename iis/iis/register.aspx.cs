@@ -114,11 +114,10 @@ namespace iis
                     return;
                 }
 
-                Response.Redirect("profile.aspx");
-
                 conn.Close();
-            }
 
+                Response.Redirect("profile.aspx");
+            }
         }
     }
 }
