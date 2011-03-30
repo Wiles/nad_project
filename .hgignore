@@ -1,2 +1,4 @@
 glob:nbproject/private/*
 glob:nbproject/project*
+glob:iis/iis/obj/*
+glob:iis/iis/bin/*
