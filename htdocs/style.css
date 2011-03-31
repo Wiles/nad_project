@@ -6,10 +6,10 @@
 }
 
 h1.title{
-    font-family:Georgia, "Times New Roman", Times, serif;
-    font-size:xx-large;
-    color:navy;
-    background-color:#96C5D5;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: xx-large;
+    color: navy;
+    background-color: #96C5D5;
 }
 
 div.header
@@ -26,8 +26,22 @@ div.login
     text-align:right;
 }
 
+div.search
+{
+    width: 50%;
+    position: relative;
+    float: right;
+}
+
+.right
+{
+    margin-right: 1%;
+    float: right;
+}
+
 div.displayname
 {
+    width: 50%;
     /* float: left; */
 }
 
@@ -70,4 +84,9 @@ p.postfoot
 textarea
 {
     resize: none;
+}
+
+div.searchfield
+{
+    width: 81%;
 }
