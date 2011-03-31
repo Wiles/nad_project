@@ -17,6 +17,9 @@ $error = "&nbsp;";
 session_start();
 $user = isset($_SESSION['user_id'])?$_SESSION['user_name']:"";
 $people = "<br />";
+$contain = "";
+$exact = "";
+$email = "";
 
 if( $user == "" )
 {
@@ -44,10 +47,17 @@ if ($_POST['searchfield'] != "")
         else if ($_POST['type'] == "exact")
         {
             $field = "='".mysql_escape_string($_POST['searchfield']."'");
+            $exact = "checked";
         }
         else if ($_POST['type'] == "contains")
         {
             $field = " LIKE '%".mysql_escape_string($_POST['searchfield'])."%'";
+            $contain = "checked";
+        }
+
+        if ($_POST['field'] == "email")
+        {
+            $email = "checked";
         }
 
         $query = "SELECT name, email, dateOfBirth, id FROM users WHERE ".mysql_escape_string($_POST['field']).$field.";";
@@ -101,15 +111,15 @@ if ($_POST['searchfield'] != "")
                 <fieldset>
                     <legend>Field:</legend>
                     <input type="radio" id="field" name="field" value="name" checked="true" />Name&nbsp;
-                    <input type="radio" id="field" name="field" value="email" />E-mail&nbsp;
+                    <input type="radio" id="field" name="field" value="email" <?php echo $email ?> />E-mail&nbsp;
                 </fieldset>
                 <br />
 
                 <fieldset>
                     <legend>Filter:</legend>
                     <input type="radio" id="type" name="type" value="starts" checked="true" />Starts With&nbsp;
-                    <input type="radio" id="type" name="type" value="contains" />Contains&nbsp;
-                    <input type="radio" id="type" name="type" value="exact" />Exact Match&nbsp;
+                    <input type="radio" id="type" name="type" value="contains" <?php echo $contain ?> />Contains&nbsp;
+                    <input type="radio" id="type" name="type" value="exact" <?php echo $exact ?> />Exact Match&nbsp;
                 </fieldset>
                 <br />
 
