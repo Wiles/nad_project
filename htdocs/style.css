@@ -31,12 +31,14 @@ div.search
     width: 50%;
     position: relative;
     float: right;
+    background-color:#96C5D5;
 }
 
 .right
 {
     margin-right: 1%;
     float: right;
+    background-color:#96C5D5;
 }
 
 div.displayname
