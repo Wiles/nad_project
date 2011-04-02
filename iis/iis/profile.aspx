@@ -7,11 +7,23 @@
     <title></title>
     <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
+
 <body>
+    <!--#include FILE="private_header.html" -->
     <form id="form1" runat="server">
-    <!--#include FILE="private_header.html" --> 
-    <asp:Label ID="lb_userid" runat="server" Text="Label"></asp:Label>
-    <!--#include FILE="private_footer.html" --> 
+    <h2><asp:Label ID="lb_userid" runat="server" Text="Label"></asp:Label></h2>
+    <asp:Panel ID="Panel1" runat="server">
+        <asp:TextBox ID="TextBoxPost" runat="server" Height="81px" Width="311px" 
+            MaxLength="1024" TextMode="MultiLine"></asp:TextBox>
+        <br />
+        <asp:Button ID="ButtonPost" runat="server" Text="Post" Width="104px" 
+            onclick="Button1_Click" />
+    </asp:Panel>
+    <asp:HiddenField ID="HiddenProfileID" runat="server" />
+    <asp:HiddenField ID="HiddenParentID" runat="server" />
+    <asp:Panel ID="PanelPosts" runat="server">
+    </asp:Panel>
     </form>
-</body>
+    <!--#include FILE="private_footer.html" -->
+    </body>
 </html>

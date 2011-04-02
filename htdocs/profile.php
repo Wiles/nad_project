@@ -7,7 +7,7 @@
     // 1 space is necessary
     $form = " ";
     $me = false;
-	$friends = true;
+    $friends = true;
 
     if( isset($_GET['id']))
     {
