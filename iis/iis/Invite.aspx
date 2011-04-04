@@ -6,17 +6,18 @@
 <head runat="server">
     <title></title>
     <link rel="stylesheet" type="text/css" href="style.css" />
+    <script type="text/javascript" src="notify.js"></script>
 </head>
-<body>
-    <form id="form1" runat="server">
+<bodyonload="getPostCount()">>
     <!--#include FILE="private_header.html" --> 
+    <form id="form1" runat="server">
     <div>
         <div class="error" id ="error">
         <asp:Label ID="lb_error" runat="server" Text=" "></asp:Label></div><br />
         <asp:Label ID="lb_message" runat="server"></asp:Label><br />
         You should be redirected back to your profile page in 5 seconds.
     </div>
-    <!--#include FILE="private_footer.html" --> 
     </form>
+    <!--#include FILE="private_footer.html" --> 
 </body>
 </html>
