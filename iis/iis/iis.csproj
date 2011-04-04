@@ -33,6 +33,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -51,7 +54,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="edit.aspx" />
+    <Content Include="Friends.aspx" />
     <Content Include="index.aspx" />
+    <Content Include="logout.aspx" />
+    <Content Include="Notification.aspx" />
     <Content Include="notify.js" />
     <Content Include="private_footer.html" />
     <Content Include="private_header.html" />
@@ -76,12 +82,33 @@
     <Compile Include="edit.aspx.designer.cs">
       <DependentUpon>edit.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Friends.aspx.cs">
+      <DependentUpon>Friends.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Friends.aspx.designer.cs">
+      <DependentUpon>Friends.aspx</DependentUpon>
+    </Compile>
     <Compile Include="index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="index.aspx.designer.cs">
       <DependentUpon>index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="logout.aspx.cs">
+      <DependentUpon>logout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="logout.aspx.designer.cs">
+      <DependentUpon>logout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Notification.aspx.cs">
+      <DependentUpon>Notification.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Notification.aspx.designer.cs">
+      <DependentUpon>Notification.aspx</DependentUpon>
     </Compile>
     <Compile Include="profile.aspx.cs">
       <DependentUpon>profile.aspx</DependentUpon>
