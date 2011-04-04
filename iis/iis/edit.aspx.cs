@@ -22,6 +22,10 @@ namespace iis
             {
                 Response.Redirect("index.aspx");
             }
+            else if( Shared.ValidateUser((string)Session["user_id"]) == false)
+            {
+                Response.Redirect("logout.aspx");
+            }
 
             Page.Header.Title = "SetBook - Preferences";
 

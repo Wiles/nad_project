@@ -60,5 +60,44 @@ namespace iis
                 list.Add(i.ToString());
             }
         }
+
+        public static Boolean ValidateUser( string userID)
+        {
+
+            OdbcConnection conn = null;
+            OdbcCommand cmd;
+            OdbcDataReader reader;
+
+            Boolean isValid = true;
+
+            string query = "SELECT suspended FROM users WHERE id='" + userID + "';";
+            try
+            {
+                conn = new OdbcConnection(Shared.ConnectionString());
+                conn.Open();
+
+                cmd = new OdbcCommand(query);
+                cmd.Connection = conn;
+                reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    if (1 == (Int32)reader["suspended"])
+                    {
+                        isValid = false;
+                    }
+                }
+                else
+                {
+                    isValid = false;
+                }
+            }
+            catch
+            {
+                isValid = false;
+            }
+
+            return isValid;
+        }
     }
 }

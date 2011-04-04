@@ -6,6 +6,7 @@
 <head id="Head1" runat="server">
     <title></title>
     <link rel="stylesheet" type="text/css" href="style.css" />
+    <script type="text/javascript" src="notify.js"></script>
 </head>
 
 <body>
