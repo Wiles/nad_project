@@ -40,6 +40,8 @@ namespace iis
             {
                 string id = string.Empty;
                 string profileid = (Request["id"] == null) ? (string)Session["user_id"] : (string)Request["id"];
+
+                // TODO: use parameters
                 query = "SELECT name FROM users WHERE id='" +  profileid + "';";
                 try
                 {
@@ -84,6 +86,7 @@ namespace iis
 
             string profileid = (Request["id"] == null) ? (string)Session["user_id"] : (string)Request["id"] ;
 
+            // TODO: use parameters
             query = "INSERT INTO post (parent, time, text, userid, profileid) VALUES ( NULL, NOW(), '"
                 + TextBoxPost.Text + "', '"
                 + Session["user_id"].ToString() + "', '"
@@ -119,14 +122,14 @@ namespace iis
         private void GetPosts()
         {
             OdbcConnection conn = null;
-            OdbcCommand cmd;
-            OdbcDataReader reader;
+            OdbcCommand cmd, cmd2, cmd3;
+            OdbcDataReader reader, reader2, reader3;
             string query = string.Empty;
             string profileid = (Request["id"] == null) ? (string)Session["user_id"] : (string)Request["id"];
 
             try
             {
-
+                // TODO: use parameters
                 query = "SELECT profileid, userid, text, time, name, post.id FROM post LEFT JOIN (users) ON (post.userid=users.id) WHERE profileid='"
                     + profileid + "' AND parent IS NULL ORDER BY time desc";
 
@@ -137,7 +140,7 @@ namespace iis
 
                 reader = cmd.ExecuteReader();
 
-               // PanelPosts.Controls.Add(new LiteralControl("<div class="));
+               // PanelPosts.Controls.Add(new LiteralControl("<div class=\"\""));
 
                 while (reader.Read())
                 {
@@ -145,11 +148,16 @@ namespace iis
                     PanelPosts.Controls.Add(new LiteralControl("<br/>"));
                     PanelPosts.Controls.Add(new LiteralControl("<div class=\"wrap\">"));
                     PanelPosts.Controls.Add(new LiteralControl(Server.HtmlEncode(reader.GetString(2))));
-                    PanelPosts.Controls.Add(new LiteralControl(""));
-                    PanelPosts.Controls.Add(new LiteralControl(""));
-                    PanelPosts.Controls.Add(new LiteralControl(""));
+                    PanelPosts.Controls.Add(new LiteralControl("<p class=\"postfoot\">" + Server.HtmlEncode(reader.GetDateTime(3).ToString()) + "</p>"));
+                    PanelPosts.Controls.Add(new LiteralControl("<p class=\"postfoot\">"));
+                    PanelPosts.Controls.Add(new LiteralControl("<a href=\"\">" + "0" + "&nbsp;Likes<a> - "));
+                    PanelPosts.Controls.Add(new LiteralControl("<a href=\"\">" + "0" + "&nbsp;Likes<a> - "));
+                    PanelPosts.Controls.Add(new LiteralControl("<a href=\"\">" + "Show Comments<a>"));
+                    PanelPosts.Controls.Add(new LiteralControl("</p>"));
                     PanelPosts.Controls.Add(new LiteralControl("</div>"));
                     PanelPosts.Controls.Add(new LiteralControl("<hr />"));
+
+
                 }
 
                 //PanelPosts.Controls.Add(new LiteralControl(""));
