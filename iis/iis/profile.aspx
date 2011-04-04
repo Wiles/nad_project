@@ -9,7 +9,7 @@
     <script type="text/javascript" src="notify.js"></script>
 </head>
 
-<body>
+<body onload="getPostCount()">
     <!--#include FILE="private_header.html" -->
     <form id="form1" runat="server">
     <h2><asp:Label ID="lb_userid" runat="server" Text="Label"></asp:Label></h2>

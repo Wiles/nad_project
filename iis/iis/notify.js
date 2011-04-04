@@ -16,7 +16,7 @@ function getPostCount()
                 document.getElementById("not").innerHTML= "Profile Page (" + xmlhttp.responseText + ")";
             }
         }
-        xmlhttp.open("GET","/notification.php",true);
+        xmlhttp.open("GET","/notification.aspx",true);
         xmlhttp.send();
 	
 	//update once every 60 seconds
