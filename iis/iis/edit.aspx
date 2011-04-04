@@ -6,6 +6,7 @@
 <head id="Head1" runat="server">
     <title></title>
     <link rel="stylesheet" type="text/css" href="style.css" />
+    <script type="text/javascript" src="notify.js"></script>
 </head>
 <body>   
     <!--#include FILE="private_header.html" --> 
@@ -45,7 +46,7 @@
            <br />
     <asp:Button ID="btn_edit" runat="server" Text="Update" onclick="btn_edit_Click" />
     </div>
-    <!--#include FILE="private_footer.html" --> 
     </form>
+    <!--#include FILE="private_footer.html" --> 
 </body>
 </html>
