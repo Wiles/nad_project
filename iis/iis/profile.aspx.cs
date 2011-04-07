@@ -144,20 +144,76 @@ namespace iis
 
                 while (reader.Read())
                 {
-                    PanelPosts.Controls.Add(new LiteralControl("<a href=\"profile.aspx?id=" + reader.GetString(1) + "\">" + reader.GetString(4) + "</a>"));
+
+                    query = "SELECT COUNT(*) FROM vote WHERE postid='" + reader.GetInt32(5).ToString() + "' AND type='like'";
+                    cmd2 = new OdbcCommand(query);
+                    cmd2.Connection = conn;
+
+                    reader2 = cmd2.ExecuteReader();
+                    reader2.Read();
+
+                    PanelPosts.Controls.Add(new LiteralControl("<a href=\"profile.aspx?id=" + reader.GetInt32(1).ToString() + "\">" + reader.GetString(4) + "</a>"));
                     PanelPosts.Controls.Add(new LiteralControl("<br/>"));
                     PanelPosts.Controls.Add(new LiteralControl("<div class=\"wrap\">"));
                     PanelPosts.Controls.Add(new LiteralControl(Server.HtmlEncode(reader.GetString(2))));
                     PanelPosts.Controls.Add(new LiteralControl("<p class=\"postfoot\">" + Server.HtmlEncode(reader.GetDateTime(3).ToString()) + "</p>"));
                     PanelPosts.Controls.Add(new LiteralControl("<p class=\"postfoot\">"));
-                    PanelPosts.Controls.Add(new LiteralControl("<a href=\"\">" + "0" + "&nbsp;Likes<a> - "));
-                    PanelPosts.Controls.Add(new LiteralControl("<a href=\"\">" + "0" + "&nbsp;Likes<a> - "));
+                    PanelPosts.Controls.Add(new LiteralControl("<a href=\"\">" + reader2.GetInt32(0).ToString() + "&nbsp;Likes<a> - "));
+
+                    query = "SELECT COUNT(*) FROM vote WHERE postid='" + reader.GetInt32(5).ToString() + "' AND type='dislike'";
+                    cmd2 = new OdbcCommand(query);
+                    cmd2.Connection = conn;
+
+                    reader2 = cmd2.ExecuteReader();
+                    reader2.Read();
+
+                    PanelPosts.Controls.Add(new LiteralControl("<a href=\"\">" + reader2.GetInt32(0).ToString() + "&nbsp;Dislikes<a> - "));
                     PanelPosts.Controls.Add(new LiteralControl("<a href=\"\">" + "Show Comments<a>"));
                     PanelPosts.Controls.Add(new LiteralControl("</p>"));
                     PanelPosts.Controls.Add(new LiteralControl("</div>"));
                     PanelPosts.Controls.Add(new LiteralControl("<hr />"));
 
+                    PanelPosts.Controls.Add(new LiteralControl("<div class=\"comments\">"));
 
+                    query = "SELECT profileid, userid, text, time, name, post.id FROM post LEFT JOIN (users) ON (post.userid=users.id) WHERE profileid='"
+                    + profileid + "' AND parent='" + reader.GetInt32(5).ToString() + "' ORDER BY time desc";
+                    cmd3 = new OdbcCommand(query);
+                    cmd3.Connection = conn;
+
+                    reader3 = cmd3.ExecuteReader();
+
+                    while (reader3.Read())
+                    {
+                        query = "SELECT COUNT(*) FROM vote WHERE postid='" + reader.GetInt32(5).ToString() + "' AND type='like'";
+                        cmd2 = new OdbcCommand(query);
+                        cmd2.Connection = conn;
+
+                        reader2 = cmd2.ExecuteReader();
+                        reader2.Read();
+
+                        PanelPosts.Controls.Add(new LiteralControl("<a href=\"profile.aspx?id=" + reader3.GetInt32(1).ToString() + "\">" + reader3.GetString(4) + "</a>"));
+                        PanelPosts.Controls.Add(new LiteralControl("<br/>"));
+                        PanelPosts.Controls.Add(new LiteralControl("<div class=\"wrap\">"));
+                        PanelPosts.Controls.Add(new LiteralControl(Server.HtmlEncode(reader3.GetString(2))));
+                        PanelPosts.Controls.Add(new LiteralControl("<p class=\"postfoot\">" + Server.HtmlEncode(reader3.GetDateTime(3).ToString()) + "</p>"));
+                        PanelPosts.Controls.Add(new LiteralControl("<p class=\"postfoot\">"));
+                        PanelPosts.Controls.Add(new LiteralControl("<a href=\"\">" + reader2.GetInt32(0).ToString() + "&nbsp;Likes<a> - "));
+
+                        query = "SELECT COUNT(*) FROM vote WHERE postid='" + reader3.GetInt32(5).ToString() + "' AND type='dislike'";
+                        cmd2 = new OdbcCommand(query);
+                        cmd2.Connection = conn;
+
+                        reader2 = cmd2.ExecuteReader();
+                        reader2.Read();
+
+                        PanelPosts.Controls.Add(new LiteralControl("<a href=\"\">" + reader2.GetInt32(0).ToString() + "&nbsp;Dislikes<a> - "));
+                        PanelPosts.Controls.Add(new LiteralControl("<a href=\"\">" + "Show Comments<a>"));
+                        PanelPosts.Controls.Add(new LiteralControl("</p>"));
+                        PanelPosts.Controls.Add(new LiteralControl("</div>"));
+                        PanelPosts.Controls.Add(new LiteralControl("<hr />"));
+                    }
+
+                    PanelPosts.Controls.Add(new LiteralControl("</div>"));
                 }
 
                 //PanelPosts.Controls.Add(new LiteralControl(""));
@@ -169,6 +225,7 @@ namespace iis
                 //lb_error.Text = "Invalid Email or Password.";
                 return;
             }
+            conn.Close();
         }
 
     }
