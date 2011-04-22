@@ -19,11 +19,10 @@
             }
         }
 
+        function comment(post) {
+        }
+
         function submitVote(user, post, type) {
-            document.getElementById("cuserid").value = user;
-            document.getElementById("cpostid").value = post;
-            document.getElementById("ctype").value = type;
-            document.voteForm.submit();
         }
     </script>
 </head>
@@ -31,6 +30,8 @@
 <body onload="getPostCount()">
     <!--#include FILE="private_header.html" -->
     <form id="form1" runat="server">
+    <input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+    <input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
     <h2><asp:Label ID="lb_userid" runat="server" Text="Label"></asp:Label></h2>
     <asp:Panel ID="Panel1" runat="server">
         <asp:TextBox ID="TextBoxPost" runat="server" Height="81px" Width="311px" 

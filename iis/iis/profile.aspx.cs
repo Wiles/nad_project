@@ -26,6 +26,12 @@ namespace iis
             OdbcCommand cmd;
             string query = string.Empty;
 
+            //if (Request.Form["__EVENTTARGET"] == "Button2")
+            //{
+            //    //fire event
+            //    Button1_Click(this, new EventArgs());
+            //}
+
             Page.Header.Title = "SetBook - Profile";
             if (Session["user_id"] == null)
             {
@@ -219,8 +225,8 @@ namespace iis
                         PanelPosts.Controls.Add(new LiteralControl("<hr />"));
                     }
 
-                    PanelPosts.Controls.Add(new LiteralControl("<textarea></textarea><br />"));
-                    PanelPosts.Controls.Add(new LiteralControl("<input type=\"button\" value=\"Reply\" />"));
+                    PanelPosts.Controls.Add(new LiteralControl("<textarea id=\"comment" + reader.GetInt32(5).ToString() + "\"></textarea><br />"));
+                    PanelPosts.Controls.Add(new LiteralControl("<input type=\"button\" value=\"Reply\" onclick=\"javascript:comment(" + reader.GetInt32(5).ToString() + ")\" />"));
 
                     PanelPosts.Controls.Add(new LiteralControl("</div>"));
                 }
