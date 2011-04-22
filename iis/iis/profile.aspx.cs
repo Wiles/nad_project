@@ -24,7 +24,6 @@ namespace iis
         {
             OdbcConnection conn = null;
             OdbcCommand cmd;
-            OdbcDataReader reader;
             string query = string.Empty;
 
             Page.Header.Title = "SetBook - Profile";
@@ -81,13 +80,19 @@ namespace iis
         {
             OdbcConnection conn = null;
             OdbcCommand cmd;
-            OdbcDataReader reader;
             string query = string.Empty;
+            string parent = "NULL";
 
             string profileid = (Request["id"] == null) ? (string)Session["user_id"] : (string)Request["id"] ;
 
+            if (HiddenParentID.Value != "")
+            {
+                parent = HiddenParentID.Value;
+            }
+
             // TODO: use parameters
-            query = "INSERT INTO post (parent, time, text, userid, profileid) VALUES ( NULL, NOW(), '"
+            query = "INSERT INTO post (parent, time, text, userid, profileid) VALUES ("
+                + parent + ", NOW(), '"
                 + TextBoxPost.Text + "', '"
                 + Session["user_id"].ToString() + "', '"
                 + profileid.ToString() + "' )";
@@ -106,6 +111,7 @@ namespace iis
                 //TODO
                 conn.Close();
                 //lb_error.Text = "Invalid Email or Password.";
+                
                 return;
             }
 
@@ -141,10 +147,11 @@ namespace iis
                 reader = cmd.ExecuteReader();
 
                // PanelPosts.Controls.Add(new LiteralControl("<div class=\"\""));
+                int postCount = 0;
 
                 while (reader.Read())
                 {
-
+                    postCount++;
                     query = "SELECT COUNT(*) FROM vote WHERE postid='" + reader.GetInt32(5).ToString() + "' AND type='like'";
                     cmd2 = new OdbcCommand(query);
                     cmd2.Connection = conn;
@@ -168,12 +175,12 @@ namespace iis
                     reader2.Read();
 
                     PanelPosts.Controls.Add(new LiteralControl("<a href=\"\">" + reader2.GetInt32(0).ToString() + "&nbsp;Dislikes<a> - "));
-                    PanelPosts.Controls.Add(new LiteralControl("<a href=\"\">" + "Show Comments<a>"));
+                    PanelPosts.Controls.Add(new LiteralControl("<a href=\"javascript:toggleComments(" + postCount.ToString() + ")\" id=\"a" + postCount.ToString() + "\">" + "Show Comments<a>"));
                     PanelPosts.Controls.Add(new LiteralControl("</p>"));
                     PanelPosts.Controls.Add(new LiteralControl("</div>"));
                     PanelPosts.Controls.Add(new LiteralControl("<hr />"));
 
-                    PanelPosts.Controls.Add(new LiteralControl("<div class=\"comments\">"));
+                    PanelPosts.Controls.Add(new LiteralControl("<div class=\"comments\" id=\"c" + postCount.ToString() + "\" style=\"display:none\">"));
 
                     query = "SELECT profileid, userid, text, time, name, post.id FROM post LEFT JOIN (users) ON (post.userid=users.id) WHERE profileid='"
                     + profileid + "' AND parent='" + reader.GetInt32(5).ToString() + "' ORDER BY time desc";
@@ -206,12 +213,14 @@ namespace iis
                         reader2 = cmd2.ExecuteReader();
                         reader2.Read();
 
-                        PanelPosts.Controls.Add(new LiteralControl("<a href=\"\">" + reader2.GetInt32(0).ToString() + "&nbsp;Dislikes<a> - "));
-                        PanelPosts.Controls.Add(new LiteralControl("<a href=\"\">" + "Show Comments<a>"));
+                        PanelPosts.Controls.Add(new LiteralControl("<a href=\"\">" + reader2.GetInt32(0).ToString() + "&nbsp;Dislikes<a>"));
                         PanelPosts.Controls.Add(new LiteralControl("</p>"));
                         PanelPosts.Controls.Add(new LiteralControl("</div>"));
                         PanelPosts.Controls.Add(new LiteralControl("<hr />"));
                     }
+
+                    PanelPosts.Controls.Add(new LiteralControl("<textarea></textarea><br />"));
+                    PanelPosts.Controls.Add(new LiteralControl("<input type=\"button\" value=\"Reply\" />"));
 
                     PanelPosts.Controls.Add(new LiteralControl("</div>"));
                 }
