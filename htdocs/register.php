@@ -15,7 +15,7 @@
 
 require $_SERVER['DOCUMENT_ROOT'].'/../includes/database.php';
 $page_title = "Registration";
-
+session_start();
 $name = isset($_POST['name'])?$_POST['name']:'';
 $email = isset($_POST['email'])?$_POST['email']:'';
 $year = isset($_POST['year'])?$_POST['year']:'';
