@@ -278,7 +278,7 @@ if (isset($_SESSION['mobile']))
 else
 {
     $style = "/style.css";
-    $header = "/../templates/pprivate_header.html";
+    $header = "/../templates/private_header.html";
     $footer = "/../templates/private_footer.html";
 }
 ?>
