@@ -1,0 +1,109 @@
+﻿body
+{
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:medium;
+    color:black;
+}
+
+h1.title{
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: xx-large;
+    color: navy;
+    background-color: #96C5D5;
+}
+
+div.header
+{
+    position: relative;
+    margin-left:auto;
+    margin-right:auto;
+    background-color:#96C5D5;
+}
+
+div.login
+{
+    margin-right:10px;
+    text-align:right;
+}
+
+div.search
+{
+    width: 50%;
+    position: relative;
+    float: right;
+    background-color:#96C5D5;
+}
+
+.right
+{
+    margin-right: 1%;
+    float: right;
+}
+
+div.displayname
+{
+    width: 100%;
+    /* float: left; */
+}
+
+div.sidebar
+{
+    width: 18%;
+    background-color:#96C5D5;
+    float: left;
+}
+
+div.maincontent
+{
+    position: relative;
+    background-color:white;
+    float: left;
+    margin-left: 1%;
+    max-width: 81%;
+}
+
+div.posts
+{
+    margin-left: 2%;
+}
+
+div.comments
+{
+    margin-left: 4%;
+}
+
+.wrap
+{
+    word-wrap: break-word;
+}
+
+p.postfoot
+{
+    font-size: x-small;
+}
+
+textarea
+{
+    resize: none;
+}
+
+div.searchfield
+{
+    width: 81%;
+}
+
+address
+{
+    position: relative;
+    float: left;
+    width: 100%;
+    margin-top: 1em;
+    padding-top: 1em;
+    border-top: thin solid;
+    text-align: center
+}
+
+a.mobile
+{
+    font-size: x-small;
+}
