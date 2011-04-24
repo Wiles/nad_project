@@ -62,15 +62,42 @@ if( isset($_POST['email']) && isset($_POST['password']))
         }
     }
     $error = "Invalid email or password.";
+
+
+}
+
+$style = "";
+$header = "";
+$footer = "";
+if (isset($_SESSION['mobile']))
+{
+    if ($_SESSION['mobile'] == "true")
+    {
+        $style = "/style_m.css";
+        $header = "/../templates/public_header_m.html";
+        $footer = "/../templates/public_footer_m.html";
+    }
+    else
+    {
+        $style = "/style.css";
+        $header = "/../templates/public_header.html";
+        $footer = "/../templates/public_footer.html";
+    }
+}
+else
+{
+    $style = "/style.css";
+    $header = "/../templates/public_header.html";
+    $footer = "/../templates/public_footer.html";
 }
 ?>
 <html>
     <head>
         <title>Setbook - <?php echo $page_title; ?></title>
-	<link rel="stylesheet" type="text/css" href="/style.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $style ?>" />
     </head>
     <body>
-<?php include $_SERVER['DOCUMENT_ROOT'].'/../templates/public_header.html'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].$header; ?>
         <form method="POST" action ="<?=$_SERVER['PHP_SELF']?>">
             <div class="error"><?php echo $error; ?></div>
             E-mail:<br />
@@ -79,6 +106,6 @@ if( isset($_POST['email']) && isset($_POST['password']))
             <input type="password" name="password" /><br /><br />
             <input type="submit" value="Login!" />
         </form>
-<?php include $_SERVER['DOCUMENT_ROOT'].'/../templates/public_footer.html'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].$footer; ?>
     </body>
 </html>

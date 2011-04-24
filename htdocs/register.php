@@ -104,14 +104,39 @@ if( isset($_POST['submitted']))
         }
     }
 }
+
+$style = "";
+$header = "";
+$footer = "";
+if (isset($_SESSION['mobile']))
+{
+    if ($_SESSION['mobile'] == "true")
+    {
+        $style = "/style_m.css";
+        $header = "/../templates/private_header_m.html";
+        $footer = "/../templates/private_footer_m.html";
+    }
+    else
+    {
+        $style = "/style.css";
+        $header = "/../templates/private_header.html";
+        $footer = "/../templates/private_footer.html";
+    }
+}
+else
+{
+    $style = "/style.css";
+    $header = "/../templates/private_header.html";
+    $footer = "/../templates/private_footer.html";
+}
 ?>
 <html>
     <head>
         <title>Setbook - <?php echo $page_title; ?></title>
-	<link rel="stylesheet" type="text/css" href="/style.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $style; ?>" />
     </head>
     <body>
-<?php include $_SERVER['DOCUMENT_ROOT'].'/../templates/public_header.html'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].$header; ?>
         <div class="error"><?php echo $error; ?></div>
         <form id="regForm" method="POST" action ="<?=$_SERVER['PHP_SELF']?>">
             <input type="hidden" name="submitted" value="yes" />
@@ -177,6 +202,6 @@ if( isset($_POST['submitted']))
             <br />
             <input type="submit" value="Register" />
         </form>
-<?php include $_SERVER['DOCUMENT_ROOT'].'/../templates/public_footer.html'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].$footer; ?>
     </body>
 </html>
