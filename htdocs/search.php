@@ -30,7 +30,7 @@ else
     //echo "Profile: ".$user;
 }
 
-if ($_POST['searchfield'] != "")
+if (isset($_POST['searchfield']) && $_POST['searchfield'] != "")
 {
     $conn = mysql_connect($db_host, $db_user, $db_password)
         or die( "Database error: " . mysql_error());
@@ -86,6 +86,30 @@ if ($_POST['searchfield'] != "")
     mysql_close();
 }
 
+$style = "";
+$header = "";
+$footer = "";
+if (isset($_SESSION['mobile']))
+{
+    if ($_SESSION['mobile'] == "true")
+    {
+        $style = "/style_m.css";
+        $header = "/../templates/private_header_m.html";
+        $footer = "/../templates/private_footer_m.html";
+    }
+    else
+    {
+        $style = "/style.css";
+        $header = "/../templates/private_header.html";
+        $footer = "/../templates/private_footer.html";
+    }
+}
+else
+{
+    $style = "/style.css";
+    $header = "/../templates/private_header.html";
+    $footer = "/../templates/private_footer.html";
+}
 ?>
 <html>
     <head>
@@ -98,10 +122,10 @@ if ($_POST['searchfield'] != "")
 
         </script>
         <title>SetBook - <?php echo $user; ?> - Search</title>
-	<link rel="stylesheet" type="text/css" href="/style.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $style; ?>" />
     </head>
     <body onload="getPostCount()">
-     <?php include $_SERVER['DOCUMENT_ROOT'].'/../templates/private_header.html'; ?>
+     <?php include $_SERVER['DOCUMENT_ROOT'].$header; ?>
             <input type="hidden" name="profileload" value="0"/>
             <div id="error"><?php echo $error; ?></div>
             <form action="search.php" method="POST" >
@@ -128,6 +152,6 @@ if ($_POST['searchfield'] != "")
             <br />
             <?php echo $people ?>
             
-    <?php include $_SERVER['DOCUMENT_ROOT'].'/../templates/private_footer.html'; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'].$footer; ?>
     </body>
 </html>

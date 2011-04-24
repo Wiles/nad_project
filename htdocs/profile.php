@@ -21,6 +21,33 @@
         header( 'Location: /') ;
     }
 
+    $style = "";
+    $header = "";
+    $footer = "";
+    $columns = 50;
+    if (isset($_SESSION['mobile']))
+    {
+        if ($_SESSION['mobile'] == "true")
+        {
+            $style = "/style_m.css";
+            $header = "/../templates/private_header_m.html";
+            $footer = "/../templates/private_footer_m.html";
+            $columns = 30;
+        }
+        else
+        {
+            $style = "/style.css";
+            $header = "/../templates/private_header.html";
+            $footer = "/../templates/private_footer.html";
+        }
+    }
+    else
+    {
+        $style = "/style.css";
+        $header = "/../templates/private_header.html";
+        $footer = "/../templates/private_footer.html";
+    }
+
     $conn = mysql_connect($db_host, $db_user, $db_password)
         or die( "Database error: " . mysql_error());
     mysql_select_db("nadproject")
@@ -183,7 +210,7 @@
         $posts = $posts."</div>";
 
     	$form = "<form method=\"POST\" action =\"profile.php?id=".$profileid."\" >\n"
-        	."<textarea id =\"message\" name=\"message\" onKeyPress=\"textLimit(this.form.message, 1024)\" rows=\"5\" cols=\"50\"></textarea><br />\n"
+        	."<textarea id =\"message\" name=\"message\" onKeyPress=\"textLimit(this.form.message, 1024)\" rows=\"5\" cols=\"".$columns."\"></textarea><br />\n"
         	."<input type=\"submit\" value=\"Post\" />\n"
         	."<input type=\"hidden\" name=\"profileid\" value=".$profileid." />\n"
         	."<input type=\"hidden\" name=\"userid\" value=".$user." />\n"
@@ -197,15 +224,17 @@
     }
     mysql_close();
 
-	if ($me == true)
-	{
-        	header( 'Location: /') ;
-	}
+    if ($me == true)
+    {
+            header( 'Location: /') ;
+    }
+
+    
 ?>
 <html>
     <head>
         <title>Setbook - <?php echo $profile_name; ?></title>
-	<link rel="stylesheet" type="text/css" href="/style.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $style ?>" />
         <script type="text/javascript" src="notify.js"></script>
 
         <script type="text/javascript">
@@ -241,12 +270,12 @@
         </script>
     </head>
     <body onload="getPostCount()">
-    <?php include $_SERVER['DOCUMENT_ROOT'].'/../templates/private_header.html'; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'].$header; ?>
         <h2><?php echo $profile_name ?></h2>
 
         <?php echo $form ?>
         <?php echo $posts ?>
 
-    <?php include $_SERVER['DOCUMENT_ROOT'].'/../templates/private_footer.html'; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'].$footer; ?>
     </body>
 </html>

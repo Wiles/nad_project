@@ -257,7 +257,30 @@ if($count==0)
     $invitations="No new friend requests<br/>";
 }
 
-
+$style = "";
+$header = "";
+$footer = "";
+if (isset($_SESSION['mobile']))
+{
+    if ($_SESSION['mobile'] == "true")
+    {
+        $style = "/style_m.css";
+        $header = "/../templates/private_header_m.html";
+        $footer = "/../templates/private_footer_m.html";
+    }
+    else
+    {
+        $style = "/style.css";
+        $header = "/../templates/private_header.html";
+        $footer = "/../templates/private_footer.html";
+    }
+}
+else
+{
+    $style = "/style.css";
+    $header = "/../templates/pprivate_header.html";
+    $footer = "/../templates/private_footer.html";
+}
 ?>
 <html>
     <head>
@@ -271,10 +294,10 @@ if($count==0)
 
         </script>
         <title>SetBook - <?php echo $user; ?> - Friends</title>
-	<link rel="stylesheet" type="text/css" href="/style.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $style; ?>" />
     </head>
     <body onload="getPostCount()">
-     <?php include $_SERVER['DOCUMENT_ROOT'].'/../templates/private_header.html'; ?>
+     <?php include $_SERVER['DOCUMENT_ROOT'].$header; ?>
             <input type="hidden" name="profileload" value="0"/>
             <div id="error"><?php echo $error; ?></div>
             Friend Requests:<br />
@@ -283,6 +306,6 @@ if($count==0)
             <?php echo $invitedfriends?><br />
             Friends:<br />
             <?php echo $friends?><br />
-    <?php include $_SERVER['DOCUMENT_ROOT'].'/../templates/private_footer.html'; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'].$footer; ?>
     </body>
 </html>

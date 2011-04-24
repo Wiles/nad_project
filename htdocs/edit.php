@@ -142,15 +142,40 @@ else
         $day = $date->format("d");
     }
 }
+
+$style = "";
+$header = "";
+$footer = "";
+if (isset($_SESSION['mobile']))
+{
+    if ($_SESSION['mobile'] == "true")
+    {
+        $style = "/style_m.css";
+        $header = "/../templates/private_header_m.html";
+        $footer = "/../templates/private_footer_m.html";
+    }
+    else
+    {
+        $style = "/style.css";
+        $header = "/../templates/private_header.html";
+        $footer = "/../templates/private_footer.html";
+    }
+}
+else
+{
+    $style = "/style.css";
+    $header = "/../templates/private_header.html";
+    $footer = "/../templates/private_footer.html";
+}
 ?>
 <html>
     <head>
         <title>Setbook - <?php echo $page_title; ?></title>
-	<link rel="stylesheet" type="text/css" href="/style.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $style; ?>" />
         <script type="text/javascript" src="notify.js"></script>
     </head>
     <body onload="getPostCount()">
-<?php include $_SERVER['DOCUMENT_ROOT'].'/../templates/private_header.html'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].$header; ?>
 
         <div class="error"><?php echo $error; ?></div>
         <form id="regForm" method="POST" action ="<?=$_SERVER['PHP_SELF']?>">
@@ -219,6 +244,6 @@ else
             <br />
             <input type="submit" value="Update" />
         </form>
-<?php include $_SERVER['DOCUMENT_ROOT'].'/../templates/private_footer.html'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].$footer; ?>
     </body>
 </html>

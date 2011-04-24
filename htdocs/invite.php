@@ -83,19 +83,44 @@
             $error = "Your invite could  not be sent: " . $result;
         }
     }
+
+    $style = "";
+    $header = "";
+    $footer = "";
+    if (isset($_SESSION['mobile']))
+    {
+        if ($_SESSION['mobile'] == "true")
+        {
+            $style = "/style_m.css";
+            $header = "/../templates/private_header_m.html";
+            $footer = "/../templates/private_footer_m.html";
+        }
+        else
+        {
+            $style = "/style.css";
+            $header = "/../templates/private_header.html";
+            $footer = "/../templates/private_footer.html";
+        }
+    }
+    else
+    {
+        $style = "/style.css";
+        $header = "/../templates/private_header.html";
+        $footer = "/../templates/private_footer.html";
+    }
 ?>
 <meta http-equiv="refresh" content="5;url=profile.php">
 <html>
     <head>
         <title>Setbook - <?php echo $page_title; ?></title>
-	<link rel="stylesheet" type="text/css" href="/style.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $style; ?>" />
     </head>
     <body>
-<?php include $_SERVER['DOCUMENT_ROOT'].'/../templates/private_header.html'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].$header; ?>
         <br />
         <br />
         <div class="error"><?php echo $error ?></div>
         <p>You should automatically be redirected to your profile page in 5 seconds</p>
-<?php include $_SERVER['DOCUMENT_ROOT'].'/../templates/private_footer.html'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].$footer; ?>
     </body>
 </html>
