@@ -11,7 +11,7 @@
  * Milesstone:	Apache Client
  */
 
-require $_SERVER['DOCUMENT_ROOT'].'/../includes/database.php';
+require $_SERVER['DOCUMENT_ROOT'].'/includes/database.php';
 session_start();
 if( isset($_SESSION['user_id']))
 {
