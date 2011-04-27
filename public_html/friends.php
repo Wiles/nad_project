@@ -13,7 +13,7 @@
  */
 
 
-require $_SERVER['DOCUMENT_ROOT'].'/../includes/database.php';
+require $_SERVER['DOCUMENT_ROOT'].'/includes/database.php';
 $page_title = "Friends";
 $error = "&nbsp;";
 $email = isset($_POST['email'])?$_POST['email']:"";
@@ -265,21 +265,21 @@ if (isset($_SESSION['mobile']))
     if ($_SESSION['mobile'] == "true")
     {
         $style = "/style_m.css";
-        $header = "/../templates/private_header_m.html";
-        $footer = "/../templates/private_footer_m.html";
+        $header = "/templates/private_header_m.html";
+        $footer = "/templates/private_footer_m.html";
     }
     else
     {
         $style = "/style.css";
-        $header = "/../templates/private_header.html";
-        $footer = "/../templates/private_footer.html";
+        $header = "/templates/private_header.html";
+        $footer = "/templates/private_footer.html";
     }
 }
 else
 {
     $style = "/style.css";
-    $header = "/../templates/private_header.html";
-    $footer = "/../templates/private_footer.html";
+    $header = "/templates/private_header.html";
+    $footer = "/templates/private_footer.html";
 }
 ?>
 <html>

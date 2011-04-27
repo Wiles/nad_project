@@ -12,7 +12,7 @@
  * Milesstone:	Apache Client
  */
 
-require $_SERVER['DOCUMENT_ROOT'].'/../includes/database.php';
+require $_SERVER['DOCUMENT_ROOT'].'/includes/database.php';
 $page_title = "Login";
 $error = "&nbsp;";
 $email = isset($_POST['email'])?$_POST['email']:"";
@@ -74,21 +74,21 @@ if (isset($_SESSION['mobile']))
     if ($_SESSION['mobile'] == "true")
     {
         $style = "/style_m.css";
-        $header = "/../templates/public_header_m.html";
-        $footer = "/../templates/public_footer_m.html";
+        $header = "/templates/public_header_m.html";
+        $footer = "/templates/public_footer_m.html";
     }
     else
     {
         $style = "/style.css";
-        $header = "/../templates/public_header.html";
-        $footer = "/../templates/public_footer.html";
+        $header = "/templates/public_header.html";
+        $footer = "/templates/public_footer.html";
     }
 }
 else
 {
     $style = "/style.css";
-    $header = "/../templates/public_header.html";
-    $footer = "/../templates/public_footer.html";
+    $header = "/templates/public_header.html";
+    $footer = "/templates/public_footer.html";
 }
 ?>
 <html>
